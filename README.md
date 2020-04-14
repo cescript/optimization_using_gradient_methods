@@ -14,197 +14,159 @@ Optimizasyon, hemen hemen tüm mühendislik çalışmalarında karşımıza çı
 
 Elimizde 
 
-$$
-\min_{\mathbf{x} \in \mathbb{R}^n} f(\mathbf{x})
-$$
+!["\min_{\mathbf{x} \in \mathbb{R}^n} f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=%5cmin_%7b%5cmathbf%7bx%7d%20%5cin%20%5cmathbb%7bR%7d%5en%7d%20f%28%5cmathbf%7bx%7d%29)
 
-şeklinde verilen bir koşulsuz en iyileme problemi olduğunu varsayalım. Burada $f$, $\mathbb{R}^n$ uzayında sürekli türevlenebilir bir fonksiyon ise, en iyileme probleminin çözümü $\nabla f(\mathbf{x}^k) = 0$ çözümünü sağlayan tüm $\mathbf{x}^1, \mathbf{x}^2, \dots, \mathbf{x}^m$ noktalarından $\min_{k=1,\dots,m}f(\mathbf{x}^k)$ değerini üreten $\mathbf{x_k} \in \mathbb{R}^n$ olacaktır.
+şeklinde verilen bir koşulsuz en iyileme problemi olduğunu varsayalım. Burada !["f"](https://render.githubusercontent.com/render/math?math=f), !["\mathbb{R}^n"](https://render.githubusercontent.com/render/math?math=%5cmathbb%7bR%7d%5en) uzayında sürekli türevlenebilir bir fonksiyon ise, en iyileme probleminin çözümü !["\nabla f(\mathbf{x}^k) = 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28%5cmathbf%7bx%7d%5ek%29%20%3d%200) çözümünü sağlayan tüm !["\mathbf{x}^1, \mathbf{x}^2, \dots, \mathbf{x}^m"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx%7d%5e1%2c%20%5cmathbf%7bx%7d%5e2%2c%20%5cdots%2c%20%5cmathbf%7bx%7d%5em) noktalarından !["\min_{k=1,\dots,m}f(\mathbf{x}^k)"](https://render.githubusercontent.com/render/math?math=%5cmin_%7bk%3d1%2c%5cdots%2cm%7df%28%5cmathbf%7bx%7d%5ek%29) değerini üreten !["\mathbf{x_k} \in \mathbb{R}^n"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_k%7d%20%5cin%20%5cmathbb%7bR%7d%5en) olacaktır.
 
 Böyle bir optimizasyon yönteminin çözümünde gündelik hayatta karşımıza bazı zorluklar çıkmaktadır. Bu zorluklardan bazıları aşağıda maddeler halinde verilmiştir.
 
-- $f$ fonksiyonunun tanımının bilinmemesi: Günümüzde veri analizi ve makine öğrenmesi problemlerinin neredeyse tamamında öğrenme veri seti ve etiketler üzerinden yapılmaktadır. Makine öğrenmesi problemlerinde, herhangi bir verinin ($\mathbf{x}$) hangi etikete ($y$) sahip olduğu bilinse de, veriyi etikete taşıyan $y=f(\mathbf{x})$ fonksiyonu hiç bir zaman bilinmemektedir. Zaten makine öğrenmesi dediğimiz sürecin amacı $f: \mathbb{R^n} \rightarrow \mathbb{R}$ fonksiyonunun bulunması işlemidir.
+- !["f"](https://render.githubusercontent.com/render/math?math=f) fonksiyonunun tanımının bilinmemesi: Günümüzde veri analizi ve makine öğrenmesi problemlerinin neredeyse tamamında öğrenme veri seti ve etiketler üzerinden yapılmaktadır. Makine öğrenmesi problemlerinde, herhangi bir verinin (!["\mathbf{x}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx%7d)) hangi etikete (!["y"](https://render.githubusercontent.com/render/math?math=y)) sahip olduğu bilinse de, veriyi etikete taşıyan !["y=f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=y%3df%28%5cmathbf%7bx%7d%29) fonksiyonu hiç bir zaman bilinmemektedir. Zaten makine öğrenmesi dediğimiz sürecin amacı !["f: \mathbb{R^n} \rightarrow \mathbb{R}"](https://render.githubusercontent.com/render/math?math=f%3a%20%5cmathbb%7bR%5en%7d%20%5crightarrow%20%5cmathbb%7bR%7d) fonksiyonunun bulunması işlemidir.
 
-- Eğer $f$ fonksiyonu yüksek dereceden bir fonksiyon ise $\nabla f(\mathbf{x})$ fonksiyonu da yüksek dereceden bir fonksiyon olacağından $\nabla f(\mathbf{x}^k) = 0$ çözümünü sağlayan $\mathbf{x}^k$ değerlerini bulmak oldukça zor olacaktır.
+- Eğer !["f"](https://render.githubusercontent.com/render/math?math=f) fonksiyonu yüksek dereceden bir fonksiyon ise !["\nabla f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28%5cmathbf%7bx%7d%29) fonksiyonu da yüksek dereceden bir fonksiyon olacağından !["\nabla f(\mathbf{x}^k) = 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28%5cmathbf%7bx%7d%5ek%29%20%3d%200) çözümünü sağlayan !["\mathbf{x}^k"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx%7d%5ek) değerlerini bulmak oldukça zor olacaktır.
 
-- İkinci adımda bahsedilen $\nabla f(\mathbf{x}^k) = 0$ problemi çözülebilse dahi, eşitliği sağlayan $\mathbf{x}^k$ değerleri sonsuz sayıda olabileceğinden $\min_{k=1,\dots,m}f(\mathbf{x}^k)$ probleminin çözümü, orjinal problemin çözümü kadar zor olacaktır.
+- İkinci adımda bahsedilen !["\nabla f(\mathbf{x}^k) = 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28%5cmathbf%7bx%7d%5ek%29%20%3d%200) problemi çözülebilse dahi, eşitliği sağlayan !["\mathbf{x}^k"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx%7d%5ek) değerleri sonsuz sayıda olabileceğinden !["\min_{k=1,\dots,m}f(\mathbf{x}^k)"](https://render.githubusercontent.com/render/math?math=%5cmin_%7bk%3d1%2c%5cdots%2cm%7df%28%5cmathbf%7bx%7d%5ek%29) probleminin çözümü, orjinal problemin çözümü kadar zor olacaktır.
 
-Yukarıda sayılan nedenlerden ötürü $f(\mathbf{x})$ fonksiyonunun en küçüklemesi/büyüklemesi probleminin bilgisayarlar ile çözümü analitik yöntemler yerine iteratif yöntemler kullanılarak yapılmaktadır. Bu yazımızda değineceğimiz iteratif yöntemler literatürde İniş Yöntemleri (Descent Methods) olarak bilinen grubun altında yer almaktadır. 
+Yukarıda sayılan nedenlerden ötürü !["f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%29) fonksiyonunun en küçüklemesi/büyüklemesi probleminin bilgisayarlar ile çözümü analitik yöntemler yerine iteratif yöntemler kullanılarak yapılmaktadır. Bu yazımızda değineceğimiz iteratif yöntemler literatürde İniş Yöntemleri (Descent Methods) olarak bilinen grubun altında yer almaktadır. 
 
-İniş Yöntemleri; rastgele seçilen bir $\mathbf{x_0}$ değerinden başlayarak, her adımda, $\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k$ işlemi ile $\nabla f(\mathbf{x_k})$ fonksiyonunun sıfıra yakınsamasını sağlar. 
+İniş Yöntemleri; rastgele seçilen bir !["\mathbf{x_0}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d) değerinden başlayarak, her adımda, !["\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_%7bk%2b1%7d%7d%20%3d%20%5cmathbf%7bx_k%7d%20%2b%20%5ceta_k%20d_k) işlemi ile !["\nabla f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28%5cmathbf%7bx_k%7d%29) fonksiyonunun sıfıra yakınsamasını sağlar. 
 
-Burada $\eta_k$ adım boyunu, $d_k$ ise iniş doğrultusunu göstermektedir. Herhangi bir $d \neq 0 \in \mathbb{R}^n$ vektörünün iniş doğrultusu olabilmesi için 
+Burada !["\eta_k"](https://render.githubusercontent.com/render/math?math=%5ceta_k) adım boyunu, !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) ise iniş doğrultusunu göstermektedir. Herhangi bir !["d \neq 0 \in \mathbb{R}^n"](https://render.githubusercontent.com/render/math?math=d%20%5cneq%200%20%5cin%20%5cmathbb%7bR%7d%5en) vektörünün iniş doğrultusu olabilmesi için 
 
-$$\nabla^\intercal f(\mathbf{x}) d \lt 0 \label{descentCondition} \tag{1}$$ 
+!["\nabla^\intercal f(\mathbf{x}) d \lt 0 \label{descentCondition} \tag{1}"](https://render.githubusercontent.com/render/math?math=%5cnabla%5e%5cintercal%20f%28%5cmathbf%7bx%7d%29%20d%20%5clt%200%20%5clabel%7bdescentCondition%7d%20%5ctag%7b1%7d) 
 
 şartını sağlaması gerekmektedir.
 
-**önsav:** $d \in \mathbb{R}^n$ vektörünün bir iniş doğrultusu olması durumunda seçilen küçük bir $\epsilon>0$ değeri için $f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})$ olmak zorundadır. 
+**önsav:** !["d \in \mathbb{R}^n"](https://render.githubusercontent.com/render/math?math=d%20%5cin%20%5cmathbb%7bR%7d%5en) vektörünün bir iniş doğrultusu olması durumunda seçilen küçük bir !["\epsilon>0"](https://render.githubusercontent.com/render/math?math=%5cepsilon%3e0) değeri için !["f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%2b%5cepsilon%20d%29%20%5clt%20f%28%5cmathbf%7bx%7d%29) olmak zorundadır. 
 
-**ispat:** $f$ fonksyinunun, $d$ yönündeki türevi aşağıdaki denklem ile tanımlanır.
+**ispat:** !["f"](https://render.githubusercontent.com/render/math?math=f) fonksyinunun, !["d"](https://render.githubusercontent.com/render/math?math=d) yönündeki türevi aşağıdaki denklem ile tanımlanır.
 
-$$\nabla_d f(\mathbf{x}) = \lim_{\epsilon\to 0^{+}} \frac{f(\mathbf{x}+\epsilon d) - f(\mathbf{x})}{\epsilon}$$
+!["\nabla_d f(\mathbf{x}) = \lim_{\epsilon\to 0^{+}} \frac{f(\mathbf{x}+\epsilon d) - f(\mathbf{x})}{\epsilon}"](https://render.githubusercontent.com/render/math?math=%5cnabla_d%20f%28%5cmathbf%7bx%7d%29%20%3d%20%5clim_%7b%5cepsilon%5cto%200%5e%7b%2b%7d%7d%20%5cfrac%7bf%28%5cmathbf%7bx%7d%2b%5cepsilon%20d%29%20-%20f%28%5cmathbf%7bx%7d%29%7d%7b%5cepsilon%7d)
 
-Burada $f$ türevlenebilir ise; $\nabla_d f(\mathbf{x})=\nabla_d f(\mathbf{x}) = \nabla^\intercal f(\mathbf{x}) d$ eşitliği geçerlidir. $d$ vektörünün iniş doğrultusu olabilmesi için $\nabla^\intercal f(\mathbf{x}) d \lt 0$ olması şartı bulunduğundan, yukarıda verilen limit ifadesinin de negatif olması gerekmektedir. Limitin payda kısmı $\epsilon \gt 0$ olduğundan pay kısmının $f(\mathbf{x}+\epsilon d) - f(\mathbf{x}) \lt 0$ olması gerekmektedir. Bu da ancak $f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})$ olması durumunda mümkündür.
+Burada !["f"](https://render.githubusercontent.com/render/math?math=f) türevlenebilir ise; !["\nabla_d f(\mathbf{x})=\nabla_d f(\mathbf{x}) = \nabla^\intercal f(\mathbf{x}) d"](https://render.githubusercontent.com/render/math?math=%5cnabla_d%20f%28%5cmathbf%7bx%7d%29%3d%5cnabla_d%20f%28%5cmathbf%7bx%7d%29%20%3d%20%5cnabla%5e%5cintercal%20f%28%5cmathbf%7bx%7d%29%20d) eşitliği geçerlidir. !["d"](https://render.githubusercontent.com/render/math?math=d) vektörünün iniş doğrultusu olabilmesi için !["\nabla^\intercal f(\mathbf{x}) d \lt 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%5e%5cintercal%20f%28%5cmathbf%7bx%7d%29%20d%20%5clt%200) olması şartı bulunduğundan, yukarıda verilen limit ifadesinin de negatif olması gerekmektedir. Limitin payda kısmı !["\epsilon \gt 0"](https://render.githubusercontent.com/render/math?math=%5cepsilon%20%5cgt%200) olduğundan pay kısmının !["f(\mathbf{x}+\epsilon d) - f(\mathbf{x}) \lt 0"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%2b%5cepsilon%20d%29%20-%20f%28%5cmathbf%7bx%7d%29%20%5clt%200) olması gerekmektedir. Bu da ancak !["f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%2b%5cepsilon%20d%29%20%5clt%20f%28%5cmathbf%7bx%7d%29) olması durumunda mümkündür.
 
-Yukarıda verilen ispat aracılığıyla, $\eta_k = \epsilon$ ve $d_k=d$ iniş doğrultusunda bir vektör seçilmesi durumunda $f(\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k) \lt f(\mathbf{x_k})$ olduğu, yani İniş Yönteminin her iterasyonda o anki $f(\mathbf{x_k})$ değerinden daha küçük bir $f(\mathbf{x_{k+1}})$ değeri bulduğu görülür. Bu iterasyonlar bulunan $f(\mathbf{x_k})$ değeri artık küçülmeyene kadar devam ettirilerek bir $f$ fonksiyonunun en küçük noktası bulunabilir.
+Yukarıda verilen ispat aracılığıyla, !["\eta_k = \epsilon"](https://render.githubusercontent.com/render/math?math=%5ceta_k%20%3d%20%5cepsilon) ve !["d_k=d"](https://render.githubusercontent.com/render/math?math=d_k%3dd) iniş doğrultusunda bir vektör seçilmesi durumunda !["f(\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k) \lt f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_%7bk%2b1%7d%7d%20%3d%20%5cmathbf%7bx_k%7d%20%2b%20%5ceta_k%20d_k%29%20%5clt%20f%28%5cmathbf%7bx_k%7d%29) olduğu, yani İniş Yönteminin her iterasyonda o anki !["f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_k%7d%29) değerinden daha küçük bir !["f(\mathbf{x_{k+1}})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_%7bk%2b1%7d%7d%29) değeri bulduğu görülür. Bu iterasyonlar bulunan !["f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_k%7d%29) değeri artık küçülmeyene kadar devam ettirilerek bir !["f"](https://render.githubusercontent.com/render/math?math=f) fonksiyonunun en küçük noktası bulunabilir.
 
 Algoritmik olarak bu akış aşağıdaki şekilde özetlenebilir.
 
-* İlklendirme: $\mathbf{x_0} \in \mathbb{R}^n$
-* İterasyon: $k=0,1,\dots$ için
-  * (a) Bir iniş yönü $d_k$ seç, öyle ki $\nabla^\intercal f(x) d_k \lt 0$ olsun
-  * (b) Bir adım boyu $\eta_k$ belirle, öyle ki $f(\mathbf{x_k} + \eta_k d_k) < f(\mathbf{x_k})$ olsun
-  * (c) $\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k$ şeklinde güncelle
+* İlklendirme: !["\mathbf{x_0} \in \mathbb{R}^n"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d%20%5cin%20%5cmathbb%7bR%7d%5en)
+* İterasyon: !["k=0,1,\dots"](https://render.githubusercontent.com/render/math?math=k%3d0%2c1%2c%5cdots) için
+  * (a) Bir iniş yönü !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) seç, öyle ki !["\nabla^\intercal f(x) d_k \lt 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%5e%5cintercal%20f%28x%29%20d_k%20%5clt%200) olsun
+  * (b) Bir adım boyu !["\eta_k"](https://render.githubusercontent.com/render/math?math=%5ceta_k) belirle, öyle ki !["f(\mathbf{x_k} + \eta_k d_k) < f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_k%7d%20%2b%20%5ceta_k%20d_k%29%20%3c%20f%28%5cmathbf%7bx_k%7d%29) olsun
+  * (c) !["\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_%7bk%2b1%7d%7d%20%3d%20%5cmathbf%7bx_k%7d%20%2b%20%5ceta_k%20d_k) şeklinde güncelle
   * (d) Durma koşulu sağnadıysa dur, yoksa (a) adımına dön
 
-Verilen akış incelendiğinde iniş yöntemine dayalı iteratif en küçükleme algoritmasında kritik iki adımın (a,b) olduğu görülmektedir. Bunlardan ilki $d_k$ iniş yönünün belirlenmesi, ikincisi ise yukarıdaki ispatta sabit kabul ettiğimiz $\eta_k$ adım aralığının belirlenmesi işlemidir. Bu iki parametrenin farklı yöntemlerle belirlenmesine dayanarak, literatürde çeşitli iniş yöntemi algoritmaları önerilmiştir. Bu yazımızda literatürde yaygın olarak kullanılan Gradyan İniş Yöntemi ve Kesin Doğru Arama iniş yöntemleri incelenecektir. İniş yöntemlerininin davranışlarını ve aradaki farkları daha iyi görebilmek adına yöntemlerin tanımı verildikten sonra basit bir optimizasyon problemi üzerinden yöntemin çalışması incelenecektir.
+Verilen akış incelendiğinde iniş yöntemine dayalı iteratif en küçükleme algoritmasında kritik iki adımın (a,b) olduğu görülmektedir. Bunlardan ilki !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) iniş yönünün belirlenmesi, ikincisi ise yukarıdaki ispatta sabit kabul ettiğimiz !["\eta_k"](https://render.githubusercontent.com/render/math?math=%5ceta_k) adım aralığının belirlenmesi işlemidir. Bu iki parametrenin farklı yöntemlerle belirlenmesine dayanarak, literatürde çeşitli iniş yöntemi algoritmaları önerilmiştir. Bu yazımızda literatürde yaygın olarak kullanılan Gradyan İniş Yöntemi ve Kesin Doğru Arama iniş yöntemleri incelenecektir. İniş yöntemlerininin davranışlarını ve aradaki farkları daha iyi görebilmek adına yöntemlerin tanımı verildikten sonra basit bir optimizasyon problemi üzerinden yöntemin çalışması incelenecektir.
 
 ### Örnek Problemin Analitik Çözümü
-Elimizde $f(x,y) = x^2+2y^2$ ile verilen bir $f(\mathbf{x})$ fonksiyonu olduğunu varsayalım. Bu fonksiyon üzerinden $\min_{x,y} f(x,y)$ şartını sağlayan $x,y$ değerleri soruluyor olsun. Bildiğimiz üzere bir fonksiyonun yerel en küçük noktası birinci türevin sıfır, ikinci türevin pozitif olduğu noktadır.
+Elimizde !["f(x,y) = x^2+2y^2"](https://render.githubusercontent.com/render/math?math=f%28x%2cy%29%20%3d%20x%5e2%2b2y%5e2) ile verilen bir !["f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%29) fonksiyonu olduğunu varsayalım. Bu fonksiyon üzerinden !["\min_{x,y} f(x,y)"](https://render.githubusercontent.com/render/math?math=%5cmin_%7bx%2cy%7d%20f%28x%2cy%29) şartını sağlayan !["x,y"](https://render.githubusercontent.com/render/math?math=x%2cy) değerleri soruluyor olsun. Bildiğimiz üzere bir fonksiyonun yerel en küçük noktası birinci türevin sıfır, ikinci türevin pozitif olduğu noktadır.
 
-Burada öncelikle $f(x,y)$ fonksiyonunun birinci türevine bakalım.
+Burada öncelikle !["f(x,y)"](https://render.githubusercontent.com/render/math?math=f%28x%2cy%29) fonksiyonunun birinci türevine bakalım.
 
-$$
-\nabla f(x,y) = 
-\begin{bmatrix}
-\frac{\partial f(x,y)}{\partial x} \\
-\frac{\partial f(x,y)}{\partial y}
-\end{bmatrix}
-=
-\begin{bmatrix}
-2x \\
-4y
-\end{bmatrix}
-$$
+!["\nabla f(x,y) = \begin{bmatrix}\frac{\partial f(x,y)}{\partial x} \\\frac{\partial f(x,y)}{\partial y}\end{bmatrix}=\begin{bmatrix}2x \\4y\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28x%2cy%29%20%3d%20%5cbegin%7bbmatrix%7d%5cfrac%7b%5cpartial%20f%28x%2cy%29%7d%7b%5cpartial%20x%7d%20%5c%5c%5cfrac%7b%5cpartial%20f%28x%2cy%29%7d%7b%5cpartial%20y%7d%5cend%7bbmatrix%7d%3d%5cbegin%7bbmatrix%7d2x%20%5c%5c4y%5cend%7bbmatrix%7d)
 
-Burada birinci türev sıfıra eşitlenirse; $\nabla f(x,y) = 0$ şartını sağlayan tek noktanın $x=0, y=0$ noktası olduğu görülür. Bu noktanın yerel en küçük nokta olup olmadığını görmek için $f(x,y)$ fonksiyonunun ikinci türevini alırsak:
+Burada birinci türev sıfıra eşitlenirse; !["\nabla f(x,y) = 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%20f%28x%2cy%29%20%3d%200) şartını sağlayan tek noktanın !["x=0, y=0"](https://render.githubusercontent.com/render/math?math=x%3d0%2c%20y%3d0) noktası olduğu görülür. Bu noktanın yerel en küçük nokta olup olmadığını görmek için !["f(x,y)"](https://render.githubusercontent.com/render/math?math=f%28x%2cy%29) fonksiyonunun ikinci türevini alırsak:
 
-$$
-\nabla^2 f(x,y) = 
-\begin{bmatrix}
-\frac{\partial^2 f(x,y)}{\partial x \partial x} && \frac{\partial^2 f(x,y)}{\partial x \partial y}\\
-\frac{\partial^2 f(x,y)}{\partial y \partial x} && \frac{\partial^2 f(x,y)}{\partial y \partial y}
-\end{bmatrix}
-=
-\begin{bmatrix}
-2 & 0 \\
-0 & 4
-\end{bmatrix}
-$$
+!["\nabla^2 f(x,y) = \begin{bmatrix}\frac{\partial^2 f(x,y)}{\partial x \partial x} && \frac{\partial^2 f(x,y)}{\partial x \partial y}\\\frac{\partial^2 f(x,y)}{\partial y \partial x} && \frac{\partial^2 f(x,y)}{\partial y \partial y}\end{bmatrix}=\begin{bmatrix}2 & 0 \\0 & 4\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cnabla%5e2%20f%28x%2cy%29%20%3d%20%5cbegin%7bbmatrix%7d%5cfrac%7b%5cpartial%5e2%20f%28x%2cy%29%7d%7b%5cpartial%20x%20%5cpartial%20x%7d%20%26%26%20%5cfrac%7b%5cpartial%5e2%20f%28x%2cy%29%7d%7b%5cpartial%20x%20%5cpartial%20y%7d%5c%5c%5cfrac%7b%5cpartial%5e2%20f%28x%2cy%29%7d%7b%5cpartial%20y%20%5cpartial%20x%7d%20%26%26%20%5cfrac%7b%5cpartial%5e2%20f%28x%2cy%29%7d%7b%5cpartial%20y%20%5cpartial%20y%7d%5cend%7bbmatrix%7d%3d%5cbegin%7bbmatrix%7d2%20%26%200%20%5c%5c0%20%26%204%5cend%7bbmatrix%7d)
 
-elde edilir. $(0,0)$ noktası ikinci türevde yerine koyulursa elde edilen matrisin pozitif tanımlı (tüm özdeğerleri pozitif) olduğu görülür. Bu durumda $f(0,0)=0$ verilen $f$ fonksiyonunun en küçük noktasıdır denilir. Şimdi bu analitik çözümü iteratif iniş yöntemleri ile çözmeye çalışalım.
+elde edilir. !["(0,0)"](https://render.githubusercontent.com/render/math?math=%280%2c0%29) noktası ikinci türevde yerine koyulursa elde edilen matrisin pozitif tanımlı (tüm özdeğerleri pozitif) olduğu görülür. Bu durumda !["f(0,0)=0"](https://render.githubusercontent.com/render/math?math=f%280%2c0%29%3d0) verilen !["f"](https://render.githubusercontent.com/render/math?math=f) fonksiyonunun en küçük noktasıdır denilir. Şimdi bu analitik çözümü iteratif iniş yöntemleri ile çözmeye çalışalım.
 
 ### Gradyan İniş Yöntemi (Gradient Descent)
-Gradyan iniş yöntemi iniş doğrultusu $d_k$ vektörünü, gradyanın tam tersi yönünde, $d_k=-\nabla f$ şeklinde seçmeyi önermektedir. Bu şekilde seçilen bir $d_k$ için 
+Gradyan iniş yöntemi iniş doğrultusu !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) vektörünü, gradyanın tam tersi yönünde, !["d_k=-\nabla f"](https://render.githubusercontent.com/render/math?math=d_k%3d-%5cnabla%20f) şeklinde seçmeyi önermektedir. Bu şekilde seçilen bir !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) için 
 
-$$\nabla^\intercal f d = - \nabla^\intercal f \nabla f = -\lVert \nabla f) \lVert^2 \lt 0$$ 
+!["\nabla^\intercal f d = - \nabla^\intercal f \nabla f = -\lVert \nabla f) \lVert^2 \lt 0"](https://render.githubusercontent.com/render/math?math=%5cnabla%5e%5cintercal%20f%20d%20%3d%20-%20%5cnabla%5e%5cintercal%20f%20%5cnabla%20f%20%3d%20-%5clVert%20%5cnabla%20f%29%20%5clVert%5e2%20%5clt%200) 
 
-olduğundan Denklem \ref{descentCondition} ile verilen iniş doğrultusu olma şartı sağlanmış olur. Gradyan İniş yöntemi iniş adım boyutu $\eta$ nın seçimi için bir yöntem önermemektedir. 
+olduğundan Denklem \ref{descentCondition} ile verilen iniş doğrultusu olma şartı sağlanmış olur. Gradyan İniş yöntemi iniş adım boyutu !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) nın seçimi için bir yöntem önermemektedir. 
 
-Verilen örnek problemin *Gradyan İniş Yöntemi* ile çözümü için $\eta_k=0.25$ gibi sabit bir sayı olduğunu varsayalım. Bu durumda problem şu şekilde çözülecektir.
+Verilen örnek problemin *Gradyan İniş Yöntemi* ile çözümü için !["\eta_k=0.25"](https://render.githubusercontent.com/render/math?math=%5ceta_k%3d0.25) gibi sabit bir sayı olduğunu varsayalım. Bu durumda problem şu şekilde çözülecektir.
 
 - İlklendirme: 
-  - \$$\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}$$
+  - !["\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d%20%3d%20%5cbegin%7bbmatrix%7d2.0%20%5c%5c%202.0%20%5cend%7bbmatrix%7d)
 - İterasyon 1
-  - \$$d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}$$
-  - \$$\eta_0 = 0.25$$
-  - \$$\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.25 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}$$
-  - \$$f(\mathbf{x_1}) = x^2+2y^2 = 1^2 + 2 \times 0.0^2 = 1$$
-  - \$$\lVert \nabla f(\mathbf{x_1}) \lVert = 2$$
+  - !["d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_0%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%202.0%20%5c%5c%204%20%5ctimes%202.0%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%204.0%20%5c%5c%208.0%5cend%7bbmatrix%7d)
+  - !["\eta_0 = 0.25"](https://render.githubusercontent.com/render/math?math=%5ceta_0%20%3d%200.25)
+  - !["\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.25 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_1%7d%20%3d%20%5cmathbf%7bx_0%7d%20%2b%20%5ceta_0%20d_0%20%3d%20%5cbegin%7bbmatrix%7d2.0%20%5c%5c%202.0%20%5cend%7bbmatrix%7d%20-%200.25%20%5cbegin%7bbmatrix%7d%204.0%20%5c%5c%208.0%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%201.0%20%5c%5c%200.0%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_1}) = x^2+2y^2 = 1^2 + 2 \times 0.0^2 = 1"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_1%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%201%5e2%20%2b%202%20%5ctimes%200.0%5e2%20%3d%201)
+  - !["\lVert \nabla f(\mathbf{x_1}) \lVert = 2"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_1%7d%29%20%5clVert%20%3d%202)
 - İterasyon 2
-  - \$$d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 1.0 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 2.0 \\ 0.0\end{bmatrix}$$
-  - \$$\eta_1 = 0.25$$
-  - \$$\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix}1.0 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 2.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.0\end{bmatrix}$$
-  - \$$f(\mathbf{x_2}) = x^2+2y^2 = 0.5^2 + 2 \times 0.0^2 = 0.25$$
-  - \$$\lVert \nabla f(\mathbf{x_2}) \lVert = 1.0$$
+  - !["d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 1.0 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 2.0 \\ 0.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_1%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%201.0%20%5c%5c%204%20%5ctimes%200.0%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%202.0%20%5c%5c%200.0%5cend%7bbmatrix%7d)
+  - !["\eta_1 = 0.25"](https://render.githubusercontent.com/render/math?math=%5ceta_1%20%3d%200.25)
+  - !["\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix}1.0 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 2.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_2%7d%20%3d%20%5cmathbf%7bx_1%7d%20%2b%20%5ceta_1%20d_1%20%3d%20%5cbegin%7bbmatrix%7d1.0%20%5c%5c%200.0%20%5cend%7bbmatrix%7d%20-%200.25%20%5cbegin%7bbmatrix%7d%202.0%20%5c%5c%200.0%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%200.5%20%5c%5c%200.0%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_2}) = x^2+2y^2 = 0.5^2 + 2 \times 0.0^2 = 0.25"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_2%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%200.5%5e2%20%2b%202%20%5ctimes%200.0%5e2%20%3d%200.25)
+  - !["\lVert \nabla f(\mathbf{x_2}) \lVert = 1.0"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_2%7d%29%20%5clVert%20%3d%201.0)
 - İterasyon 3
-  - \$$d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.5 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}$$
-  - \$$\eta_2 = 0.25$$
-  - \$$\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.5 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.25 \\ 0.0\end{bmatrix}$$
-  - \$$f(\mathbf{x_3}) = x^2+2y^2 = 0.25^2 + 2 \times 0.0^2 = 0.0625$$
-  - \$$\lVert \nabla f(\mathbf{x_3}) \lVert = 0.5$$
+  - !["d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.5 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_2%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%200.5%20%5c%5c%204%20%5ctimes%200.0%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%201.0%20%5c%5c%200.0%5cend%7bbmatrix%7d)
+  - !["\eta_2 = 0.25"](https://render.githubusercontent.com/render/math?math=%5ceta_2%20%3d%200.25)
+  - !["\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.5 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.25 \\ 0.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_3%7d%20%3d%20%5cmathbf%7bx_2%7d%20%2b%20%5ceta_2%20d_2%20%3d%20%5cbegin%7bbmatrix%7d0.5%20%5c%5c%200.0%20%5cend%7bbmatrix%7d%20-%200.25%20%5cbegin%7bbmatrix%7d%201.0%20%5c%5c%200.0%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%200.25%20%5c%5c%200.0%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_3}) = x^2+2y^2 = 0.25^2 + 2 \times 0.0^2 = 0.0625"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_3%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%200.25%5e2%20%2b%202%20%5ctimes%200.0%5e2%20%3d%200.0625)
+  - !["\lVert \nabla f(\mathbf{x_3}) \lVert = 0.5"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_3%7d%29%20%5clVert%20%3d%200.5)
 
-İterasyonlardan da görüldüğü üzere her iterasyon adımında $f(\mathbf{x_k})$ fonksiyonu geometrik olarak sıfıra yaklaşmaktadır. İterasyon adımlarına $\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}$ olana kadar devam edilirse (toplam 20 iterasyon) aşağıda verilen grafik oluşur.
+İterasyonlardan da görüldüğü üzere her iterasyon adımında !["f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_k%7d%29) fonksiyonu geometrik olarak sıfıra yaklaşmaktadır. İterasyon adımlarına !["\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_k%7d%29%20%5clVert%20%5clt%2010%5e%7b-5%7d) olana kadar devam edilirse (toplam 20 iterasyon) aşağıda verilen grafik oluşur.
 
 ![gradient descent example#half][gradient_descent_eta3]
 
-Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını ($\mathbf{x_0}$) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen $\mathbf{x_k}$ noktalarını göstermektedir. Mavi ile gösterilen çizgi ise $d_k$ doğrultusunu göstermektedir.
+Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını (!["\mathbf{x_0}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d)) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen !["\mathbf{x_k}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_k%7d) noktalarını göstermektedir. Mavi ile gösterilen çizgi ise !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) doğrultusunu göstermektedir.
 
-Gradyan iniş yönteminin çalışmasını etkileyen en önemli parametre $\eta$ adım boyutudur. Bu parametrenin etkisini incelemek için örnek problem farklı $\eta$ değerleri üzerinden çözülerek aşağıda verilen grafikler hazırlanmıştır.
+Gradyan iniş yönteminin çalışmasını etkileyen en önemli parametre !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) adım boyutudur. Bu parametrenin etkisini incelemek için örnek problem farklı !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) değerleri üzerinden çözülerek aşağıda verilen grafikler hazırlanmıştır.
 
-| $\eta=0.05$ | $\eta=0.15$ | $\eta=0.25$ | $\eta=0.35$ | $\eta=0.45$ |
+| !["\eta=0.05"](https://render.githubusercontent.com/render/math?math=%5ceta%3d0.05) | !["\eta=0.15"](https://render.githubusercontent.com/render/math?math=%5ceta%3d0.15) | !["\eta=0.25"](https://render.githubusercontent.com/render/math?math=%5ceta%3d0.25) | !["\eta=0.35"](https://render.githubusercontent.com/render/math?math=%5ceta%3d0.35) | !["\eta=0.45"](https://render.githubusercontent.com/render/math?math=%5ceta%3d0.45) |
 ![gradient descent effect of step size][gradient_descent_eta1] | ![gradient descent effect of step size][gradient_descent_eta2] | ![gradient descent effect of step size][gradient_descent_eta3] | ![gradient descent effect of step size][gradient_descent_eta4] | ![gradient descent effect of step size][gradient_descent_eta5] |
 
-Grafiklerden de görüldüğü üzere, küçük $\eta$ değerleri için yöntemin yakısaması uzun sayıda iterasyon gerektirirken, büyük $\eta$ değerleri için yöntemin hiç yakınsamama riski bulunmaktadır. Bu problemlerin önüne geçmek için gradyan iniş yöntemi ile birlikte sabit $\eta$ kullanmak yerine iterasyonlar arasında değişen bir adım boyutu kullanmak tercih edilmektedir. Bu adım boyutu genllikle, $\eta_k = \frac{\eta}{k}$ gibi, iterasyonun başlangıcında büyük adım boyları kullanmaya izin verirken, ilerleyen iterasyonlarda kullanılan adım boyunu kısaltacak şekilde seçilmektedir.
+Grafiklerden de görüldüğü üzere, küçük !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) değerleri için yöntemin yakısaması uzun sayıda iterasyon gerektirirken, büyük !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) değerleri için yöntemin hiç yakınsamama riski bulunmaktadır. Bu problemlerin önüne geçmek için gradyan iniş yöntemi ile birlikte sabit !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) kullanmak yerine iterasyonlar arasında değişen bir adım boyutu kullanmak tercih edilmektedir. Bu adım boyutu genllikle, !["\eta_k = \frac{\eta}{k}"](https://render.githubusercontent.com/render/math?math=%5ceta_k%20%3d%20%5cfrac%7b%5ceta%7d%7bk%7d) gibi, iterasyonun başlangıcında büyük adım boyları kullanmaya izin verirken, ilerleyen iterasyonlarda kullanılan adım boyunu kısaltacak şekilde seçilmektedir.
 
 ### Kesin Doğru Araması (Exact Line Search)
 
-Gradyan İniş yönteminde karşımıza çıkan $\eta$ adım boyutunun belirlenemesi problemine karşı önerilen bir yöntemdir. Yöntem her iterasyon adımında seçilen bir $d_k$ doğrultusu için en uygun $\eta_k$ adım boyunu bulmaya yönelik ikinci bir optimizasyon problemi tanımlar. Bu problem;
+Gradyan İniş yönteminde karşımıza çıkan !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) adım boyutunun belirlenemesi problemine karşı önerilen bir yöntemdir. Yöntem her iterasyon adımında seçilen bir !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) doğrultusu için en uygun !["\eta_k"](https://render.githubusercontent.com/render/math?math=%5ceta_k) adım boyunu bulmaya yönelik ikinci bir optimizasyon problemi tanımlar. Bu problem;
 
-$$
-\eta_k = \arg \min_{\eta \geq 0} f(\mathbf{x_k} + \eta d_k) \label{exactLS} \tag{2}
-$$
+!["\eta_k = \arg \min_{\eta \geq 0} f(\mathbf{x_k} + \eta d_k) \label{exactLS} \tag{2}"](https://render.githubusercontent.com/render/math?math=%5ceta_k%20%3d%20%5carg%20%5cmin_%7b%5ceta%20%5cgeq%200%7d%20f%28%5cmathbf%7bx_k%7d%20%2b%20%5ceta%20d_k%29%20%5clabel%7bexactLS%7d%20%5ctag%7b2%7d)
 
-şeklinde tanımlanır. Bu optimizasyon problemi sonucunda yöntem $\mathbf{x_k}$ noktasından, $d_k$ doğrultusunda ne uzunlukta bir adım $\eta_k$ atması durumunda $f$ fonksiyonunun en küçük değerine ulaştığını çözmeyi amaçlar.
+şeklinde tanımlanır. Bu optimizasyon problemi sonucunda yöntem !["\mathbf{x_k}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_k%7d) noktasından, !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) doğrultusunda ne uzunlukta bir adım !["\eta_k"](https://render.githubusercontent.com/render/math?math=%5ceta_k) atması durumunda !["f"](https://render.githubusercontent.com/render/math?math=f) fonksiyonunun en küçük değerine ulaştığını çözmeyi amaçlar.
 
 Örnek problemimiz üzerinde *Kesin Doğru Araması* ile seçmemiz gereken adım boylarını hesaplamaya çalışalım. Örnek problemimizi ikinci dereceden türev (Hessian) matrisini kullanılarak aşağıda verilen şekilde yeniden yazabiliriz.
 
-$$
-f(x,y) = x^2+2y^2=\frac{1}{2} \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix}2 & 0 \\0 & 4\end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
-$$
+!["f(x,y) = x^2+2y^2=\frac{1}{2} \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix}2 & 0 \\0 & 4\end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}"](https://render.githubusercontent.com/render/math?math=f%28x%2cy%29%20%3d%20x%5e2%2b2y%5e2%3d%5cfrac%7b1%7d%7b2%7d%20%5cbegin%7bbmatrix%7d%20x%20%26%20y%20%5cend%7bbmatrix%7d%20%5cbegin%7bbmatrix%7d2%20%26%200%20%5c%5c0%20%26%204%5cend%7bbmatrix%7d%20%5cbegin%7bbmatrix%7d%20x%20%5c%5c%20y%20%5cend%7bbmatrix%7d)
 
-Burada işlem kolaylığı sağlaması açısından $\mathbf{x} = \left [x, y \right ]^\intercal$ ve $H=\nabla^2 f(\mathbf{x})$ değişkenleri kullanılarak problem düzenlenirse
+Burada işlem kolaylığı sağlaması açısından !["\mathbf{x} = \left [x, y \right ]^\intercal"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx%7d%20%3d%20%5cleft%20%5bx%2c%20y%20%5cright%20%5d%5e%5cintercal) ve !["H=\nabla^2 f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=H%3d%5cnabla%5e2%20f%28%5cmathbf%7bx%7d%29) değişkenleri kullanılarak problem düzenlenirse
 
-$$f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\intercal H \mathbf{x}$$
+!["f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\intercal H \mathbf{x}"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx%7d%29%20%3d%20%5cfrac%7b1%7d%7b2%7d%20%5cmathbf%7bx%7d%5e%5cintercal%20H%20%5cmathbf%7bx%7d)
 
 fonksiyonu elde edilir. Bu fonksiyon Denklem \ref{exactLS} ile verilen *Kesin Doğru Araması* optimizasyon probleminde yerine yazılırsa
 
-$$
-\eta_k = \arg \min_{\eta \geq 0} \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )
-$$
+!["\eta_k = \arg \min_{\eta \geq 0} \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )"](https://render.githubusercontent.com/render/math?math=%5ceta_k%20%3d%20%5carg%20%5cmin_%7b%5ceta%20%5cgeq%200%7d%20%5cfrac%7b1%7d%7b2%7d%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29%20%5e%5cintercal%20H%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29)
 
-problemi elde edilir. Burada en küçüklenmeye çalışılan ifadenin $g(\eta) = \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )$ türevi alınıp sıfıra eşitlenerek $\eta$ bulunabilir.
+problemi elde edilir. Burada en küçüklenmeye çalışılan ifadenin !["g(\eta) = \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )"](https://render.githubusercontent.com/render/math?math=g%28%5ceta%29%20%3d%20%5cfrac%7b1%7d%7b2%7d%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29%20%5e%5cintercal%20H%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29) türevi alınıp sıfıra eşitlenerek !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) bulunabilir.
 
-$$
-\begin{aligned}
-\nabla_{\eta} g(\eta) &= 0 \\
-&= \nabla_{\eta} \left ( \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right ) \right ) \\
-&= \nabla_{\eta} \left ( \frac{\eta^2}{2}d_k^\intercal H d_k  + \frac{1}{2}\mathbf{x_k}^\intercal H \mathbf{x_k} + \eta d_k^\intercal H \mathbf{x} \right ) \\
-&= \eta d_k^\intercal H d_k + d_k^\intercal H \mathbf{x_k} \\
-\eta &= -\frac{d_k^\intercal H \mathbf{x_k}}{d_k^\intercal H d_k}
-\end{aligned}
-$$
+!["\begin{aligned}\nabla_{\eta} g(\eta) &= 0 \\&= \nabla_{\eta} \left ( \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right ) \right ) \\&= \nabla_{\eta} \left ( \frac{\eta^2}{2}d_k^\intercal H d_k  + \frac{1}{2}\mathbf{x_k}^\intercal H \mathbf{x_k} + \eta d_k^\intercal H \mathbf{x} \right ) \\&= \eta d_k^\intercal H d_k + d_k^\intercal H \mathbf{x_k} \\\eta &= -\frac{d_k^\intercal H \mathbf{x_k}}{d_k^\intercal H d_k}\end{aligned}"](https://render.githubusercontent.com/render/math?math=%5cbegin%7baligned%7d%5cnabla_%7b%5ceta%7d%20g%28%5ceta%29%20%26%3d%200%20%5c%5c%26%3d%20%5cnabla_%7b%5ceta%7d%20%5cleft%20%28%20%5cfrac%7b1%7d%7b2%7d%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29%20%5e%5cintercal%20H%20%5cleft%20%28%20%5cmathbf%7bx_k%20%2b%20%5ceta%20d_k%7d%20%5cright%20%29%20%5cright%20%29%20%5c%5c%26%3d%20%5cnabla_%7b%5ceta%7d%20%5cleft%20%28%20%5cfrac%7b%5ceta%5e2%7d%7b2%7dd_k%5e%5cintercal%20H%20d_k%20%20%2b%20%5cfrac%7b1%7d%7b2%7d%5cmathbf%7bx_k%7d%5e%5cintercal%20H%20%5cmathbf%7bx_k%7d%20%2b%20%5ceta%20d_k%5e%5cintercal%20H%20%5cmathbf%7bx%7d%20%5cright%20%29%20%5c%5c%26%3d%20%5ceta%20d_k%5e%5cintercal%20H%20d_k%20%2b%20d_k%5e%5cintercal%20H%20%5cmathbf%7bx_k%7d%20%5c%5c%5ceta%20%26%3d%20-%5cfrac%7bd_k%5e%5cintercal%20H%20%5cmathbf%7bx_k%7d%7d%7bd_k%5e%5cintercal%20H%20d_k%7d%5cend%7baligned%7d)
 
-Denklem \ref{exactLS} ten hatırlayacağımız üzere aranan $\eta$ değerinin pozitif olma şartı vardır. Yukarıda bulunan $\eta$ ifadesinde $H \mathbf{x_k} = \nabla f(\mathbf{x})$ olduğundan, eğer $d_k$ iniş doğrultusu ise ifadenin pay kısmı $-d_k^\intercal \nabla f(\mathbf{x}$) sıfırdan büyük olur. Payda kısmında bulunan $H$ Hessian matrisininde pozitif tanımlı olması durumunda $\eta \gt 0$ şartı sağlanmış olur.
+Denklem \ref{exactLS} ten hatırlayacağımız üzere aranan !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) değerinin pozitif olma şartı vardır. Yukarıda bulunan !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) ifadesinde !["H \mathbf{x_k} = \nabla f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=H%20%5cmathbf%7bx_k%7d%20%3d%20%5cnabla%20f%28%5cmathbf%7bx%7d%29) olduğundan, eğer !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) iniş doğrultusu ise ifadenin pay kısmı !["-d_k^\intercal \nabla f(\mathbf{x}"](https://render.githubusercontent.com/render/math?math=-d_k%5e%5cintercal%20%5cnabla%20f%28%5cmathbf%7bx%7d)) sıfırdan büyük olur. Payda kısmında bulunan !["H"](https://render.githubusercontent.com/render/math?math=H) Hessian matrisininde pozitif tanımlı olması durumunda !["\eta \gt 0"](https://render.githubusercontent.com/render/math?math=%5ceta%20%5cgt%200) şartı sağlanmış olur.
 
 Verilen örnek problemin *Kesin Doğru Araması Yöntemi* ile çözümü aşağıdaki şekilde olacaktır.
 
 - İlklendirme: 
-  - \$$\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}$$
+  - !["\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d%20%3d%20%5cbegin%7bbmatrix%7d2.0%20%5c%5c%202.0%20%5cend%7bbmatrix%7d)
 - İterasyon 1
-  - \$$d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}$$
-  - \$$\eta_0 = -\frac{d_0^\intercal H \mathbf{x_0}}{d_0^\intercal H d_0} = -\frac{-80.0}{288.0}=0.277$$
-  - \$$\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.277 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 0.888 \\ -0.222\end{bmatrix}$$
-  - \$$f(\mathbf{x_1}) = x^2+2y^2 = 0.888^2 + 2 \times (-0.222)^2 = 0.888$$
-  - \$$\lVert \nabla f(\mathbf{x_1}) \lVert = 1.987$$
+  - !["d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_0%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%202.0%20%5c%5c%204%20%5ctimes%202.0%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%204.0%20%5c%5c%208.0%5cend%7bbmatrix%7d)
+  - !["\eta_0 = -\frac{d_0^\intercal H \mathbf{x_0}}{d_0^\intercal H d_0} = -\frac{-80.0}{288.0}=0.277"](https://render.githubusercontent.com/render/math?math=%5ceta_0%20%3d%20-%5cfrac%7bd_0%5e%5cintercal%20H%20%5cmathbf%7bx_0%7d%7d%7bd_0%5e%5cintercal%20H%20d_0%7d%20%3d%20-%5cfrac%7b-80.0%7d%7b288.0%7d%3d0.277)
+  - !["\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.277 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 0.888 \\ -0.222\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_1%7d%20%3d%20%5cmathbf%7bx_0%7d%20%2b%20%5ceta_0%20d_0%20%3d%20%5cbegin%7bbmatrix%7d2.0%20%5c%5c%202.0%20%5cend%7bbmatrix%7d%20-%200.277%20%5cbegin%7bbmatrix%7d%204.0%20%5c%5c%208.0%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%200.888%20%5c%5c%20-0.222%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_1}) = x^2+2y^2 = 0.888^2 + 2 \times (-0.222)^2 = 0.888"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_1%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%200.888%5e2%20%2b%202%20%5ctimes%20%28-0.222%29%5e2%20%3d%200.888)
+  - !["\lVert \nabla f(\mathbf{x_1}) \lVert = 1.987"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_1%7d%29%20%5clVert%20%3d%201.987)
 - İterasyon 2
-  - \$$d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.888 \\ 4 \times -0.222\end{bmatrix} = -\begin{bmatrix} 1.776 \\ -0.888\end{bmatrix}$$
-  - \$$\eta_1 = -\frac{d_1^\intercal H \mathbf{x_1}}{d_1^\intercal H d_1} = -\frac{-3.95}{9.48}=0.416$$
-  - \$$\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix} 0.888 \\ -0.222 \end{bmatrix} - 0.416 \begin{bmatrix} 1.776 \\ -0.888 \end{bmatrix} = \begin{bmatrix} 0.148 \\ 0.148\end{bmatrix}$$
-  - \$$f(\mathbf{x_2}) = x^2+2y^2 = 0.148^2 + 2 \times (0.148)^2 = 0.065$$
-  - \$$\lVert \nabla f(\mathbf{x_2}) \lVert = 0.662$$
+  - !["d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.888 \\ 4 \times -0.222\end{bmatrix} = -\begin{bmatrix} 1.776 \\ -0.888\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_1%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%200.888%20%5c%5c%204%20%5ctimes%20-0.222%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%201.776%20%5c%5c%20-0.888%5cend%7bbmatrix%7d)
+  - !["\eta_1 = -\frac{d_1^\intercal H \mathbf{x_1}}{d_1^\intercal H d_1} = -\frac{-3.95}{9.48}=0.416"](https://render.githubusercontent.com/render/math?math=%5ceta_1%20%3d%20-%5cfrac%7bd_1%5e%5cintercal%20H%20%5cmathbf%7bx_1%7d%7d%7bd_1%5e%5cintercal%20H%20d_1%7d%20%3d%20-%5cfrac%7b-3.95%7d%7b9.48%7d%3d0.416)
+  - !["\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix} 0.888 \\ -0.222 \end{bmatrix} - 0.416 \begin{bmatrix} 1.776 \\ -0.888 \end{bmatrix} = \begin{bmatrix} 0.148 \\ 0.148\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_2%7d%20%3d%20%5cmathbf%7bx_1%7d%20%2b%20%5ceta_1%20d_1%20%3d%20%5cbegin%7bbmatrix%7d%200.888%20%5c%5c%20-0.222%20%5cend%7bbmatrix%7d%20-%200.416%20%5cbegin%7bbmatrix%7d%201.776%20%5c%5c%20-0.888%20%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%200.148%20%5c%5c%200.148%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_2}) = x^2+2y^2 = 0.148^2 + 2 \times (0.148)^2 = 0.065"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_2%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%200.148%5e2%20%2b%202%20%5ctimes%20%280.148%29%5e2%20%3d%200.065)
+  - !["\lVert \nabla f(\mathbf{x_2}) \lVert = 0.662"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_2%7d%29%20%5clVert%20%3d%200.662)
 - İterasyon 3
-  - \$$d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.148 \\ 4 \times 0.148\end{bmatrix} = -\begin{bmatrix} 0.296 \\ 0.592\end{bmatrix}$$
-  - \$$\eta_2 = -\frac{d_2^\intercal H \mathbf{x_2}}{d_2^\intercal H d_2} = -\frac{-0.438}{1.580}=0.277$$
-  - \$$\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.148 \\ 0.148 \end{bmatrix} - 0.277 \begin{bmatrix} 0.296 \\ 0.592\end{bmatrix} = \begin{bmatrix} 0.065 \\ -0.016\end{bmatrix}$$
-  - \$$f(\mathbf{x_3}) = x^2+2y^2 = 0.065^2 + 2 \times (-0.016)^2 = 0.0048$$
-  - \$$\lVert \nabla f(\mathbf{x_3}) \lVert = 0.147$$
+  - !["d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.148 \\ 4 \times 0.148\end{bmatrix} = -\begin{bmatrix} 0.296 \\ 0.592\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=d_2%20%3d%20-%5cnabla%20f%28x%2cy%29%20%3d%20-%5cbegin%7bbmatrix%7d%202%20%5ctimes%200.148%20%5c%5c%204%20%5ctimes%200.148%5cend%7bbmatrix%7d%20%3d%20-%5cbegin%7bbmatrix%7d%200.296%20%5c%5c%200.592%5cend%7bbmatrix%7d)
+  - !["\eta_2 = -\frac{d_2^\intercal H \mathbf{x_2}}{d_2^\intercal H d_2} = -\frac{-0.438}{1.580}=0.277"](https://render.githubusercontent.com/render/math?math=%5ceta_2%20%3d%20-%5cfrac%7bd_2%5e%5cintercal%20H%20%5cmathbf%7bx_2%7d%7d%7bd_2%5e%5cintercal%20H%20d_2%7d%20%3d%20-%5cfrac%7b-0.438%7d%7b1.580%7d%3d0.277)
+  - !["\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.148 \\ 0.148 \end{bmatrix} - 0.277 \begin{bmatrix} 0.296 \\ 0.592\end{bmatrix} = \begin{bmatrix} 0.065 \\ -0.016\end{bmatrix}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_3%7d%20%3d%20%5cmathbf%7bx_2%7d%20%2b%20%5ceta_2%20d_2%20%3d%20%5cbegin%7bbmatrix%7d0.148%20%5c%5c%200.148%20%5cend%7bbmatrix%7d%20-%200.277%20%5cbegin%7bbmatrix%7d%200.296%20%5c%5c%200.592%5cend%7bbmatrix%7d%20%3d%20%5cbegin%7bbmatrix%7d%200.065%20%5c%5c%20-0.016%5cend%7bbmatrix%7d)
+  - !["f(\mathbf{x_3}) = x^2+2y^2 = 0.065^2 + 2 \times (-0.016)^2 = 0.0048"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_3%7d%29%20%3d%20x%5e2%2b2y%5e2%20%3d%200.065%5e2%20%2b%202%20%5ctimes%20%28-0.016%29%5e2%20%3d%200.0048)
+  - !["\lVert \nabla f(\mathbf{x_3}) \lVert = 0.147"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_3%7d%29%20%5clVert%20%3d%200.147)
 
-İterasyonlardan da görüldüğü üzere her iterasyon adımında $f(\mathbf{x_k})$ fonksiyonu Gradyan İniş Yönteminde göre çok daha hızlı bir şekilde sıfıra yaklaşmaktadır. İterasyon adımlarına $\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}$ olana kadar devam edilirse (toplam 12 iterasyon) aşağıda verilen grafik oluşur.
+İterasyonlardan da görüldüğü üzere her iterasyon adımında !["f(\mathbf{x_k})"](https://render.githubusercontent.com/render/math?math=f%28%5cmathbf%7bx_k%7d%29) fonksiyonu Gradyan İniş Yönteminde göre çok daha hızlı bir şekilde sıfıra yaklaşmaktadır. İterasyon adımlarına !["\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}"](https://render.githubusercontent.com/render/math?math=%5clVert%20%5cnabla%20f%28%5cmathbf%7bx_k%7d%29%20%5clVert%20%5clt%2010%5e%7b-5%7d) olana kadar devam edilirse (toplam 12 iterasyon) aşağıda verilen grafik oluşur.
 
 ![exact line search with gradient descent example#half][gradient_descent_els]
 
-Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını ($\mathbf{x_0}$) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen $\mathbf{x_k}$ noktalarını göstermektedir. Mavi ile gösterilen çizgi ise $d_k$ doğrultusunu göstermektedir. Kesin doğru araması $\eta$ adım boyunun bulunması için optimum çözümü önerse de $H=\nabla^2 f(\mathbf{x})$ ikinci türev bilgisini gerektirdiğinden kısıtlı bir kullanım alanına sahiptir.
+Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını (!["\mathbf{x_0}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_0%7d)) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen !["\mathbf{x_k}"](https://render.githubusercontent.com/render/math?math=%5cmathbf%7bx_k%7d) noktalarını göstermektedir. Mavi ile gösterilen çizgi ise !["d_k"](https://render.githubusercontent.com/render/math?math=d_k) doğrultusunu göstermektedir. Kesin doğru araması !["\eta"](https://render.githubusercontent.com/render/math?math=%5ceta) adım boyunun bulunması için optimum çözümü önerse de !["H=\nabla^2 f(\mathbf{x})"](https://render.githubusercontent.com/render/math?math=H%3d%5cnabla%5e2%20f%28%5cmathbf%7bx%7d%29) ikinci türev bilgisini gerektirdiğinden kısıtlı bir kullanım alanına sahiptir.
 
 Yazıda yer alan analizlerin yapıldığı kod parçaları, görseller ve kullanılan veri setlerine [imlab_optimization_using_gradient_methods](https://github.com/cescript/imlab_optimization_using_gradient_methods) GitHub sayfası üzerinden erişilebilir.
 
