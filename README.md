@@ -16,136 +16,196 @@ Optimizasyon, hemen hemen tüm mühendislik çalışmalarında karşımıza çı
 
 Elimizde 
 
-<p align="center"><img src="assets/post_resources/math//8b3de5084affa0eacaf5ce7757218932.svg?invert_in_darkmode" align=middle width=68.40600194999999pt height=23.866193999999997pt/></p>
+$$
+\min_{\mathbf{x} \in \mathbb{R}^n} f(\mathbf{x})
+$$
 
-şeklinde verilen bir koşulsuz en iyileme problemi olduğunu varsayalım. Burada <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/>, <img src="assets/post_resources/math//8a86f4a11e2fbfc03de61d587ba826de.svg?invert_in_darkmode" align=middle width=19.998202949999992pt height=22.648391699999998pt/> uzayında sürekli türevlenebilir bir fonksiyon ise, en iyileme probleminin çözümü <img src="assets/post_resources/math//dd0ab0c79b52f578a2c2da218a409973.svg?invert_in_darkmode" align=middle width=84.50341844999998pt height=27.91243950000002pt/> çözümünü sağlayan tüm <img src="assets/post_resources/math//2513cf63567db7d4413c72bb06bdf023.svg?invert_in_darkmode" align=middle width=100.18041659999999pt height=26.76175259999998pt/> noktalarından <img src="assets/post_resources/math//054dab84414b7bcff1383d7f351c4c69.svg?invert_in_darkmode" align=middle width=126.72215984999997pt height=27.91243950000002pt/> değerini üreten <img src="assets/post_resources/math//79c0ba79fb37490c2bd991634c561550.svg?invert_in_darkmode" align=middle width=58.74452759999999pt height=22.648391699999998pt/> olacaktır.
+şeklinde verilen bir koşulsuz en iyileme problemi olduğunu varsayalım. Burada $f$, $\mathbb{R}^n$ uzayında sürekli türevlenebilir bir fonksiyon ise, en iyileme probleminin çözümü $\nabla f(\mathbf{x}^k) = 0$ çözümünü sağlayan tüm $\mathbf{x}^1, \mathbf{x}^2, \dots, \mathbf{x}^m$ noktalarından $\min_{k=1,\dots,m}f(\mathbf{x}^k)$ değerini üreten $\mathbf{x_k} \in \mathbb{R}^n$ olacaktır.
 
 Böyle bir optimizasyon yönteminin çözümünde gündelik hayatta karşımıza bazı zorluklar çıkmaktadır. Bu zorluklardan bazıları aşağıda maddeler halinde verilmiştir.
 
-- <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksiyonunun tanımının bilinmemesi: Günümüzde veri analizi ve makine öğrenmesi problemlerinin neredeyse tamamında öğrenme veri seti ve etiketler üzerinden yapılmaktadır. Makine öğrenmesi problemlerinde, herhangi bir verinin (<img src="assets/post_resources/math//b0ea07dc5c00127344a1cad40467b8de.svg?invert_in_darkmode" align=middle width=9.97711604999999pt height=14.611878600000017pt/>) hangi etikete (<img src="assets/post_resources/math//deceeaf6940a8c7a5a02373728002b0f.svg?invert_in_darkmode" align=middle width=8.649225749999989pt height=14.15524440000002pt/>) sahip olduğu bilinse de, veriyi etikete taşıyan <img src="assets/post_resources/math//500abd1e889f57272c7fb284010e663b.svg?invert_in_darkmode" align=middle width=63.146798549999986pt height=24.65753399999998pt/> fonksiyonu hiç bir zaman bilinmemektedir. Zaten makine öğrenmesi dediğimiz sürecin amacı <img src="assets/post_resources/math//1c0638cf5d184fedd8a5d6e82b163488.svg?invert_in_darkmode" align=middle width=83.92668569999998pt height=26.252919pt/> fonksiyonunun bulunması işlemidir.
+- $f$ fonksiyonunun tanımının bilinmemesi: Günümüzde veri analizi ve makine öğrenmesi problemlerinin neredeyse tamamında öğrenme veri seti ve etiketler üzerinden yapılmaktadır. Makine öğrenmesi problemlerinde, herhangi bir verinin ($\mathbf{x}$) hangi etikete ($y$) sahip olduğu bilinse de, veriyi etikete taşıyan $y=f(\mathbf{x})$ fonksiyonu hiç bir zaman bilinmemektedir. Zaten makine öğrenmesi dediğimiz sürecin amacı $f: \mathbb{R^n} \rightarrow \mathbb{R}$ fonksiyonunun bulunması işlemidir.
 
-- Eğer <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksiyonu yüksek dereceden bir fonksiyon ise <img src="assets/post_resources/math//17c181e1b97115626731b0675794c0dc.svg?invert_in_darkmode" align=middle width=46.27863404999999pt height=24.65753399999998pt/> fonksiyonu da yüksek dereceden bir fonksiyon olacağından <img src="assets/post_resources/math//dd0ab0c79b52f578a2c2da218a409973.svg?invert_in_darkmode" align=middle width=84.50341844999998pt height=27.91243950000002pt/> çözümünü sağlayan <img src="assets/post_resources/math//a29662d8372c620fc5778e3ad29eafb8.svg?invert_in_darkmode" align=middle width=17.24314514999999pt height=27.91243950000002pt/> değerlerini bulmak oldukça zor olacaktır.
+- Eğer $f$ fonksiyonu yüksek dereceden bir fonksiyon ise $\nabla f(\mathbf{x})$ fonksiyonu da yüksek dereceden bir fonksiyon olacağından $\nabla f(\mathbf{x}^k) = 0$ çözümünü sağlayan $\mathbf{x}^k$ değerlerini bulmak oldukça zor olacaktır.
 
-- İkinci adımda bahsedilen <img src="assets/post_resources/math//dd0ab0c79b52f578a2c2da218a409973.svg?invert_in_darkmode" align=middle width=84.50341844999998pt height=27.91243950000002pt/> problemi çözülebilse dahi, eşitliği sağlayan <img src="assets/post_resources/math//a29662d8372c620fc5778e3ad29eafb8.svg?invert_in_darkmode" align=middle width=17.24314514999999pt height=27.91243950000002pt/> değerleri sonsuz sayıda olabileceğinden <img src="assets/post_resources/math//054dab84414b7bcff1383d7f351c4c69.svg?invert_in_darkmode" align=middle width=126.72215984999997pt height=27.91243950000002pt/> probleminin çözümü, orjinal problemin çözümü kadar zor olacaktır.
+- İkinci adımda bahsedilen $\nabla f(\mathbf{x}^k) = 0$ problemi çözülebilse dahi, eşitliği sağlayan $\mathbf{x}^k$ değerleri sonsuz sayıda olabileceğinden $\min_{k=1,\dots,m}f(\mathbf{x}^k)$ probleminin çözümü, orjinal problemin çözümü kadar zor olacaktır.
 
-Yukarıda sayılan nedenlerden ötürü <img src="assets/post_resources/math//3827df7d20f06250c09fd68e242010f0.svg?invert_in_darkmode" align=middle width=32.57996279999999pt height=24.65753399999998pt/> fonksiyonunun en küçüklemesi/büyüklemesi probleminin bilgisayarlar ile çözümü analitik yöntemler yerine iteratif yöntemler kullanılarak yapılmaktadır. Bu yazımızda değineceğimiz iteratif yöntemler literatürde İniş Yöntemleri (Descent Methods) olarak bilinen grubun altında yer almaktadır. 
+Yukarıda sayılan nedenlerden ötürü $f(\mathbf{x})$ fonksiyonunun en küçüklemesi/büyüklemesi probleminin bilgisayarlar ile çözümü analitik yöntemler yerine iteratif yöntemler kullanılarak yapılmaktadır. Bu yazımızda değineceğimiz iteratif yöntemler literatürde İniş Yöntemleri (Descent Methods) olarak bilinen grubun altında yer almaktadır. 
 
-İniş Yöntemleri; rastgele seçilen bir <img src="assets/post_resources/math//9e4cdd9fcdad2e280db762ad3e0408ad.svg?invert_in_darkmode" align=middle width=17.424597299999988pt height=14.611878600000017pt/> değerinden başlayarak, her adımda, <img src="assets/post_resources/math//19a5bb2638013a69912646d1dc28c79b.svg?invert_in_darkmode" align=middle width=128.9301387pt height=22.831056599999986pt/> işlemi ile <img src="assets/post_resources/math//9cc9c5cdd80dd10b3f76b5497f04104b.svg?invert_in_darkmode" align=middle width=54.956705099999986pt height=24.65753399999998pt/> fonksiyonunun sıfıra yakınsamasını sağlar. 
+İniş Yöntemleri; rastgele seçilen bir $\mathbf{x_0}$ değerinden başlayarak, her adımda, $\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k$ işlemi ile $\nabla f(\mathbf{x_k})$ fonksiyonunun sıfıra yakınsamasını sağlar. 
 
-Burada <img src="assets/post_resources/math//9d586210243d20051d94ea070f67777a.svg?invert_in_darkmode" align=middle width=15.428191349999992pt height=14.15524440000002pt/> adım boyunu, <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> ise iniş doğrultusunu göstermektedir. Herhangi bir <img src="assets/post_resources/math//c5f7f68d74edf0ad10f6c2457d18bce6.svg?invert_in_darkmode" align=middle width=78.78214409999998pt height=22.831056599999986pt/> vektörünün iniş doğrultusu olabilmesi için 
+Burada $\eta_k$ adım boyunu, $d_k$ ise iniş doğrultusunu göstermektedir. Herhangi bir $d \neq 0 \in \mathbb{R}^n$ vektörünün iniş doğrultusu olabilmesi için 
 
-<p align="center"><img src="assets/post_resources/math//95bdf819f745356def37986184fc10e3.svg?invert_in_darkmode" align=middle width=71.31866115pt height=16.438356pt/></p> 
+$$\nabla^\intercal f(\mathbf{x}) d \lt 0 \tag{1}$$ 
 
 şartını sağlaması gerekmektedir.
 
-**önsav:** <img src="assets/post_resources/math//37fe2ad7a2a1d12f3dcdb016a831c4b7.svg?invert_in_darkmode" align=middle width=48.64530329999999pt height=22.831056599999986pt/> vektörünün bir iniş doğrultusu olması durumunda seçilen küçük bir <img src="assets/post_resources/math//0e94fb14b258c4271bf6b32b072b902d.svg?invert_in_darkmode" align=middle width=36.80923124999999pt height=21.18721440000001pt/> değeri için <img src="assets/post_resources/math//d801a1345bdd774bbc739db82f4c7317.svg?invert_in_darkmode" align=middle width=100.47947084999998pt height=24.65753399999998pt/> olmak zorundadır. 
+**önsav:** $d \in \mathbb{R}^n$ vektörünün bir iniş doğrultusu olması durumunda seçilen küçük bir $\epsilon>0$ değeri için $f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})$ olmak zorundadır. 
 
-**ispat:** <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksyinunun, <img src="assets/post_resources/math//2103f85b8b1477f430fc407cad462224.svg?invert_in_darkmode" align=middle width=8.55596444999999pt height=22.831056599999986pt/> yönündeki türevi aşağıdaki denklem ile tanımlanır.
+**ispat:** $f$ fonksyinunun, $d$ yönündeki türevi aşağıdaki denklem ile tanımlanır.
 
-<p align="center"><img src="assets/post_resources/math//f0e9d181296c1a18a55b367d2b41d7c3.svg?invert_in_darkmode" align=middle width=235.55022315pt height=34.9562895pt/></p>
+$$\nabla_d f(\mathbf{x}) = \lim_{\epsilon\to 0^{+}} \frac{f(\mathbf{x}+\epsilon d) - f(\mathbf{x})}{\epsilon}$$
 
-Burada <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> türevlenebilir ise; <img src="assets/post_resources/math//97f7e1dda9891fcc80e74eac1c2dd994.svg?invert_in_darkmode" align=middle width=214.82197275pt height=24.65753399999998pt/> eşitliği geçerlidir. <img src="assets/post_resources/math//2103f85b8b1477f430fc407cad462224.svg?invert_in_darkmode" align=middle width=8.55596444999999pt height=22.831056599999986pt/> vektörünün iniş doğrultusu olabilmesi için <img src="assets/post_resources/math//075e864c4b39e034c7c6b9b5e8c2a741.svg?invert_in_darkmode" align=middle width=71.31866115pt height=24.65753399999998pt/> olması şartı bulunduğundan, yukarıda verilen limit ifadesinin de negatif olması gerekmektedir. Limitin payda kısmı <img src="assets/post_resources/math//3a23ba347f06cbab26d0be4bc73d328d.svg?invert_in_darkmode" align=middle width=14.891601449999989pt height=21.18721440000001pt/> olduğundan pay kısmının <img src="assets/post_resources/math//18fd36471c9c63119caca10a1b74b564.svg?invert_in_darkmode" align=middle width=128.7898722pt height=24.65753399999998pt/> olması gerekmektedir. Bu da ancak <img src="assets/post_resources/math//d801a1345bdd774bbc739db82f4c7317.svg?invert_in_darkmode" align=middle width=100.47947084999998pt height=24.65753399999998pt/> olması durumunda mümkündür.
+Burada $f$ türevlenebilir ise; $\nabla_d f(\mathbf{x})=\nabla_d f(\mathbf{x}) = \nabla^\intercal f(\mathbf{x}) d$ eşitliği geçerlidir. $d$ vektörünün iniş doğrultusu olabilmesi için $\nabla^\intercal f(\mathbf{x}) d \lt 0$ olması şartı bulunduğundan, yukarıda verilen limit ifadesinin de negatif olması gerekmektedir. Limitin payda kısmı $\epsilon \gt 0$ olduğundan pay kısmının $f(\mathbf{x}+\epsilon d) - f(\mathbf{x}) \lt 0$ olması gerekmektedir. Bu da ancak $f(\mathbf{x}+\epsilon d) \lt f(\mathbf{x})$ olması durumunda mümkündür.
 
-Yukarıda verilen ispat aracılığıyla, <img src="assets/post_resources/math//e08e185c08cee8d87d66b2e60b2a14fa.svg?invert_in_darkmode" align=middle width=44.840127749999986pt height=14.15524440000002pt/> ve <img src="assets/post_resources/math//adf26c80ed7414998fd805d266db25e2.svg?invert_in_darkmode" align=middle width=47.11750229999999pt height=22.831056599999986pt/> iniş doğrultusunda bir vektör seçilmesi durumunda <img src="assets/post_resources/math//a5bdd0c8a6aeac455d53e0f25db72890.svg?invert_in_darkmode" align=middle width=193.61293214999998pt height=24.65753399999998pt/> olduğu, yani İniş Yönteminin her iterasyonda o anki <img src="assets/post_resources/math//bdea1d9a911aca4a4c0fdea5272c439e.svg?invert_in_darkmode" align=middle width=41.25803219999999pt height=24.65753399999998pt/> değerinden daha küçük bir <img src="assets/post_resources/math//3e299cbf9ea68f924ca17ce1caa2d999.svg?invert_in_darkmode" align=middle width=58.79687879999999pt height=24.65753399999998pt/> değeri bulduğu görülür. Bu iterasyonlar bulunan <img src="assets/post_resources/math//bdea1d9a911aca4a4c0fdea5272c439e.svg?invert_in_darkmode" align=middle width=41.25803219999999pt height=24.65753399999998pt/> değeri artık küçülmeyene kadar devam ettirilerek bir <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksiyonunun en küçük noktası bulunabilir.
+Yukarıda verilen ispat aracılığıyla, $\eta_k = \epsilon$ ve $d_k=d$ iniş doğrultusunda bir vektör seçilmesi durumunda $f(\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k) \lt f(\mathbf{x_k})$ olduğu, yani İniş Yönteminin her iterasyonda o anki $f(\mathbf{x_k})$ değerinden daha küçük bir $f(\mathbf{x_{k+1}})$ değeri bulduğu görülür. Bu iterasyonlar bulunan $f(\mathbf{x_k})$ değeri artık küçülmeyene kadar devam ettirilerek bir $f$ fonksiyonunun en küçük noktası bulunabilir.
 
 Algoritmik olarak bu akış aşağıdaki şekilde özetlenebilir.
 
-> * İlklendirme: <img src="assets/post_resources/math//36323c788c3aa76cc03bf9b8fdf8db9f.svg?invert_in_darkmode" align=middle width=58.33585064999998pt height=22.648391699999998pt/>
-> * İterasyon: <img src="assets/post_resources/math//485364cba90013df228e375e7b379530.svg?invert_in_darkmode" align=middle width=81.22116749999998pt height=22.831056599999986pt/> için
->   * (a) Bir iniş yönü <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> seç, öyle ki <img src="assets/post_resources/math//02cc2dbb9c48abfc4ed005509952baff.svg?invert_in_darkmode" align=middle width=78.82447814999998pt height=24.65753399999998pt/> olsun
->   * (b) Bir adım boyu <img src="assets/post_resources/math//9d586210243d20051d94ea070f67777a.svg?invert_in_darkmode" align=middle width=15.428191349999992pt height=14.15524440000002pt/> belirle, öyle ki <img src="assets/post_resources/math//0f20a122d69daa394bf7fada82b6fabd.svg?invert_in_darkmode" align=middle width=157.4189001pt height=24.65753399999998pt/> olsun
->   * (c) <img src="assets/post_resources/math//19a5bb2638013a69912646d1dc28c79b.svg?invert_in_darkmode" align=middle width=128.9301387pt height=22.831056599999986pt/> şeklinde güncelle
+> * İlklendirme: $\mathbf{x_0} \in \mathbb{R}^n$
+> * İterasyon: $k=0,1,\dots$ için
+>   * (a) Bir iniş yönü $d_k$ seç, öyle ki $\nabla^\intercal f(x) d_k \lt 0$ olsun
+>   * (b) Bir adım boyu $\eta_k$ belirle, öyle ki $f(\mathbf{x_k} + \eta_k d_k) < f(\mathbf{x_k})$ olsun
+>   * (c) $\mathbf{x_{k+1}} = \mathbf{x_k} + \eta_k d_k$ şeklinde güncelle
 >   * (d) Durma koşulu sağnadıysa dur, yoksa (a) adımına dön
 
-Verilen akış incelendiğinde iniş yöntemine dayalı iteratif en küçükleme algoritmasında kritik iki adımın (a,b) olduğu görülmektedir. Bunlardan ilki <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> iniş yönünün belirlenmesi, ikincisi ise yukarıdaki ispatta sabit kabul ettiğimiz <img src="assets/post_resources/math//9d586210243d20051d94ea070f67777a.svg?invert_in_darkmode" align=middle width=15.428191349999992pt height=14.15524440000002pt/> adım aralığının belirlenmesi işlemidir. Bu iki parametrenin farklı yöntemlerle belirlenmesine dayanarak, literatürde çeşitli iniş yöntemi algoritmaları önerilmiştir. Bu yazımızda literatürde yaygın olarak kullanılan Gradyan İniş Yöntemi ve Kesin Doğru Arama iniş yöntemleri incelenecektir. İniş yöntemlerininin davranışlarını ve aradaki farkları daha iyi görebilmek adına yöntemlerin tanımı verildikten sonra basit bir optimizasyon problemi üzerinden yöntemin çalışması incelenecektir.
+Verilen akış incelendiğinde iniş yöntemine dayalı iteratif en küçükleme algoritmasında kritik iki adımın (a,b) olduğu görülmektedir. Bunlardan ilki $d_k$ iniş yönünün belirlenmesi, ikincisi ise yukarıdaki ispatta sabit kabul ettiğimiz $\eta_k$ adım aralığının belirlenmesi işlemidir. Bu iki parametrenin farklı yöntemlerle belirlenmesine dayanarak, literatürde çeşitli iniş yöntemi algoritmaları önerilmiştir. Bu yazımızda literatürde yaygın olarak kullanılan Gradyan İniş Yöntemi ve Kesin Doğru Arama iniş yöntemleri incelenecektir. İniş yöntemlerininin davranışlarını ve aradaki farkları daha iyi görebilmek adına yöntemlerin tanımı verildikten sonra basit bir optimizasyon problemi üzerinden yöntemin çalışması incelenecektir.
 
 ### Örnek Problemin Analitik Çözümü
-Elimizde <img src="assets/post_resources/math//3344fda3b2cdb9ef9b9c760bae3dd8fe.svg?invert_in_darkmode" align=middle width=130.1521551pt height=26.76175259999998pt/> ile verilen bir <img src="assets/post_resources/math//3827df7d20f06250c09fd68e242010f0.svg?invert_in_darkmode" align=middle width=32.57996279999999pt height=24.65753399999998pt/> fonksiyonu olduğunu varsayalım. Bu fonksiyon üzerinden <img src="assets/post_resources/math//95f130ed6dece3902f8ad5aba761d319.svg?invert_in_darkmode" align=middle width=97.34988779999999pt height=24.65753399999998pt/> şartını sağlayan <img src="assets/post_resources/math//0acac2a2d5d05a8394e21a70a71041b4.svg?invert_in_darkmode" align=middle width=25.350096749999988pt height=14.15524440000002pt/> değerleri soruluyor olsun. Bildiğimiz üzere bir fonksiyonun yerel en küçük noktası birinci türevin sıfır, ikinci türevin pozitif olduğu noktadır.
+Elimizde $f(x,y) = x^2+2y^2$ ile verilen bir $f(\mathbf{x})$ fonksiyonu olduğunu varsayalım. Bu fonksiyon üzerinden $\min_{x,y} f(x,y)$ şartını sağlayan $x,y$ değerleri soruluyor olsun. Bildiğimiz üzere bir fonksiyonun yerel en küçük noktası birinci türevin sıfır, ikinci türevin pozitif olduğu noktadır.
 
-Burada öncelikle <img src="assets/post_resources/math//e00e75871b4e789e5c465fdab29fa79a.svg?invert_in_darkmode" align=middle width=47.95292369999999pt height=24.65753399999998pt/> fonksiyonunun birinci türevine bakalım.
+Burada öncelikle $f(x,y)$ fonksiyonunun birinci türevine bakalım.
 
-<p align="center"><img src="assets/post_resources/math//134b733f42b9de875a4e7d36595d79f3.svg?invert_in_darkmode" align=middle width=207.71572469999998pt height=49.315569599999996pt/></p>
+$$
+\nabla f(x,y) = 
+\begin{bmatrix}
+\frac{\partial f(x,y)}{\partial x} \\
+\frac{\partial f(x,y)}{\partial y}
+\end{bmatrix}=
+\begin{bmatrix}
+2x \\
+4y
+\end{bmatrix}
+$$
 
-Burada birinci türev sıfıra eşitlenirse; <img src="assets/post_resources/math//f352ce8fc33595b3733d137a0ad70305.svg?invert_in_darkmode" align=middle width=91.78843574999999pt height=24.65753399999998pt/> şartını sağlayan tek noktanın <img src="assets/post_resources/math//2913547b4b0eb50096975b06edf3f43d.svg?invert_in_darkmode" align=middle width=85.62375689999999pt height=21.18721440000001pt/> noktası olduğu görülür. Bu noktanın yerel en küçük nokta olup olmadığını görmek için <img src="assets/post_resources/math//e00e75871b4e789e5c465fdab29fa79a.svg?invert_in_darkmode" align=middle width=47.95292369999999pt height=24.65753399999998pt/> fonksiyonunun ikinci türevini alırsak:
+Burada birinci türev sıfıra eşitlenirse; $\nabla f(x,y) = 0$ şartını sağlayan tek noktanın $x=0, y=0$ noktası olduğu görülür. Bu noktanın yerel en küçük nokta olup olmadığını görmek için $f(x,y)$ fonksiyonunun ikinci türevini alırsak:
 
-<p align="center"><img src="assets/post_resources/math//9c95966856b7104f4ff875ba142a9084.svg?invert_in_darkmode" align=middle width=324.145569pt height=52.27231515pt/></p>
+$$
+\nabla^2 f(x,y) = 
+\begin{bmatrix}
+\frac{\partial^2 f(x,y)}{\partial x \partial x} && \frac{\partial^2 f(x,y)}{\partial x \partial y}\\
+\frac{\partial^2 f(x,y)}{\partial y \partial x} && \frac{\partial^2 f(x,y)}{\partial y \partial y}
+\end{bmatrix}=
+\begin{bmatrix}
+2 & 0 \\
+0 & 4
+\end{bmatrix}
+$$
 
-elde edilir. <img src="assets/post_resources/math//e660f3b58b414524ec6f827411021073.svg?invert_in_darkmode" align=middle width=36.52973609999999pt height=24.65753399999998pt/> noktası ikinci türevde yerine koyulursa elde edilen matrisin pozitif tanımlı (tüm özdeğerleri pozitif) olduğu görülür. Bu durumda <img src="assets/post_resources/math//053452079cf04d4f8f9eaffc51119499.svg?invert_in_darkmode" align=middle width=76.48398779999998pt height=24.65753399999998pt/> verilen <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksiyonunun en küçük noktasıdır denilir. Şimdi bu analitik çözümü iteratif iniş yöntemleri ile çözmeye çalışalım.
+elde edilir. $(0,0)$ noktası ikinci türevde yerine koyulursa elde edilen matrisin pozitif tanımlı (tüm özdeğerleri pozitif) olduğu görülür. Bu durumda $f(0,0)=0$ verilen $f$ fonksiyonunun en küçük noktasıdır denilir. Şimdi bu analitik çözümü iteratif iniş yöntemleri ile çözmeye çalışalım.
 
 ### Gradyan İniş Yöntemi (Gradient Descent)
-Gradyan iniş yöntemi iniş doğrultusu <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> vektörünü, gradyanın tam tersi yönünde, <img src="assets/post_resources/math//12660f30d904ee719f024df4185eee60.svg?invert_in_darkmode" align=middle width=74.86305914999998pt height=22.831056599999986pt/> şeklinde seçmeyi önermektedir. Bu şekilde seçilen bir <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> için 
+Gradyan iniş yöntemi iniş doğrultusu $d_k$ vektörünü, gradyanın tam tersi yönünde, $d_k=-\nabla f$ şeklinde seçmeyi önermektedir. Bu şekilde seçilen bir $d_k$ için 
 
-<p align="center"><img src="assets/post_resources/math//25f43fc816d88f1a1f71d06a3eecce7e.svg?invert_in_darkmode" align=middle width=226.98094485pt height=18.312383099999998pt/></p> 
+$$\nabla^\intercal f d = - \nabla^\intercal f \nabla f = -\lVert \nabla f) \lVert^2 \lt 0$$ 
 
-olduğundan Denklem \ref{descentCondition} ile verilen iniş doğrultusu olma şartı sağlanmış olur. Gradyan İniş yöntemi iniş adım boyutu <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> nın seçimi için bir yöntem önermemektedir. 
+olduğundan Denklem $\eqref{1}$ ile verilen iniş doğrultusu olma şartı sağlanmış olur. Gradyan İniş yöntemi iniş adım boyutu $\eta$ nın seçimi için bir yöntem önermemektedir. 
 
-Verilen örnek problemin *Gradyan İniş Yöntemi* ile çözümü için <img src="assets/post_resources/math//5064fda65dcb1a0f873455b43e5940b5.svg?invert_in_darkmode" align=middle width=67.39158854999998pt height=21.18721440000001pt/> gibi sabit bir sayı olduğunu varsayalım. Bu durumda problem şu şekilde çözülecektir.
+Verilen örnek problemin *Gradyan İniş Yöntemi* ile çözümü için $\eta_k=0.25$ gibi sabit bir sayı olduğunu varsayalım. Bu durumda problem şu şekilde çözülecektir.
 
 - İlklendirme: 
-  - <img src="assets/post_resources/math//580a65302d8f0b22a0713a2b209fc178.svg?invert_in_darkmode" align=middle width=78.5204541pt height=47.6716218pt/>
+  - $\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}$
 - İterasyon 1
-  - <img src="assets/post_resources/math//1a12bbedea73195b595d93dce9d8a43c.svg?invert_in_darkmode" align=middle width=292.1935368pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//34af8d3c700df8780a0b136160582111.svg?invert_in_darkmode" align=middle width=66.67810379999999pt height=21.18721440000001pt/>
-  - <img src="assets/post_resources/math//c3c5f88acf7b44fd48b23e12a00d139b.svg?invert_in_darkmode" align=middle width=320.92777695pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//376a471a27916b6e9b1d6ea37df1060a.svg?invert_in_darkmode" align=middle width=268.2993357pt height=26.76175259999998pt/>
-  - <img src="assets/post_resources/math//a9d704fce74611a0c9258fd07db13bbe.svg?invert_in_darkmode" align=middle width=96.55718819999998pt height=24.65753399999998pt/>
+  - $d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}$
+  - $\eta_0 = 0.25$
+  - $\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.25 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}$
+  - $f(\mathbf{x_1}) = x^2+2y^2 = 1^2 + 2 \times 0.0^2 = 1$
+  - $\lVert \nabla f(\mathbf{x_1}) \lVert = 2$
 - İterasyon 2
-  - <img src="assets/post_resources/math//61018483bd3354efcc0ab831bfd35b36.svg?invert_in_darkmode" align=middle width=292.1935368pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//71f6e5e96a1c91b7eb4102edf11e6146.svg?invert_in_darkmode" align=middle width=66.67810379999999pt height=21.18721440000001pt/>
-  - <img src="assets/post_resources/math//bdb9bdf26b097a665dacb30aab94eacf.svg?invert_in_darkmode" align=middle width=320.92777695pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//f2981d2837d5448765c2c7c2d71ca600.svg?invert_in_darkmode" align=middle width=302.0894118pt height=26.76175259999998pt/>
-  - <img src="assets/post_resources/math//81013f5d72b905c7aeeee75b4e399048.svg?invert_in_darkmode" align=middle width=109.34262239999998pt height=24.65753399999998pt/>
+  - $d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 1.0 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 2.0 \\ 0.0\end{bmatrix}$
+  - $\eta_1 = 0.25$
+  - $\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix}1.0 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 2.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.0\end{bmatrix}$
+  - $f(\mathbf{x_2}) = x^2+2y^2 = 0.5^2 + 2 \times 0.0^2 = 0.25$
+  - $\lVert \nabla f(\mathbf{x_2}) \lVert = 1.0$
 - İterasyon 3
-  - <img src="assets/post_resources/math//6dcd5fbfa59f910fc3939729b310de1a.svg?invert_in_darkmode" align=middle width=292.1935368pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//6d9ab8e3d0ce6c2decf791f21f7ae1ac.svg?invert_in_darkmode" align=middle width=66.67810379999999pt height=21.18721440000001pt/>
-  - <img src="assets/post_resources/math//03d77c3be7bf4a5973b9abd691064299.svg?invert_in_darkmode" align=middle width=329.14697970000003pt height=47.6716218pt/>
-  - <img src="assets/post_resources/math//9f1c20092441966363986cc60c99a5a5.svg?invert_in_darkmode" align=middle width=326.74703984999996pt height=26.76175259999998pt/>
-  - <img src="assets/post_resources/math//5d2f4faa6541a40fe74ec862c730796e.svg?invert_in_darkmode" align=middle width=109.34262239999998pt height=24.65753399999998pt/>
+  - $d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.5 \\ 4 \times 0.0\end{bmatrix} = -\begin{bmatrix} 1.0 \\ 0.0\end{bmatrix}$
+  - $\eta_2 = 0.25$
+  - $\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.5 \\ 0.0 \end{bmatrix} - 0.25 \begin{bmatrix} 1.0 \\ 0.0\end{bmatrix} = \begin{bmatrix} 0.25 \\ 0.0\end{bmatrix}$
+  - $f(\mathbf{x_3}) = x^2+2y^2 = 0.25^2 + 2 \times 0.0^2 = 0.0625$
+  - $\lVert \nabla f(\mathbf{x_3}) \lVert = 0.5$
 
-İterasyonlardan da görüldüğü üzere her iterasyon adımında <img src="assets/post_resources/math//bdea1d9a911aca4a4c0fdea5272c439e.svg?invert_in_darkmode" align=middle width=41.25803219999999pt height=24.65753399999998pt/> fonksiyonu geometrik olarak sıfıra yaklaşmaktadır. İterasyon adımlarına <img src="assets/post_resources/math//38bbf525c1207135c090463fae63872f.svg?invert_in_darkmode" align=middle width=104.66011049999999pt height=26.76175259999998pt/> olana kadar devam edilirse (toplam 20 iterasyon) aşağıda verilen grafik oluşur.
+İterasyonlardan da görüldüğü üzere her iterasyon adımında $f(\mathbf{x_k})$ fonksiyonu geometrik olarak sıfıra yaklaşmaktadır. İterasyon adımlarına $\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}$ olana kadar devam edilirse (toplam 20 iterasyon) aşağıda verilen grafik oluşur.
 
 ![gradient descent example#half][gradient_descent_eta3]
 
-Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını (<img src="assets/post_resources/math//9e4cdd9fcdad2e280db762ad3e0408ad.svg?invert_in_darkmode" align=middle width=17.424597299999988pt height=14.611878600000017pt/>) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen <img src="assets/post_resources/math//3d7a784ce0bf75056d75325b87330dc4.svg?invert_in_darkmode" align=middle width=17.83327259999999pt height=14.611878600000017pt/> noktalarını göstermektedir. Mavi ile gösterilen çizgi ise <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> doğrultusunu göstermektedir.
+Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını ($\mathbf{x_0}$) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen $\mathbf{x_k}$ noktalarını göstermektedir. Mavi ile gösterilen çizgi ise $d_k$ doğrultusunu göstermektedir.
 
-Gradyan iniş yönteminin çalışmasını etkileyen en önemli parametre <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> adım boyutudur. Bu parametrenin etkisini incelemek için örnek problem farklı <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> değerleri üzerinden çözülerek aşağıda verilen grafikler hazırlanmıştır.
+Gradyan iniş yönteminin çalışmasını etkileyen en önemli parametre $\eta$ adım boyutudur. Bu parametrenin etkisini incelemek için örnek problem farklı $\eta$ değerleri üzerinden çözülerek aşağıda verilen grafikler hazırlanmıştır.
 
-| <img src="assets/post_resources/math//61571c7749816a7ccb0d7a5491b0b837.svg?invert_in_darkmode" align=middle width=59.893419299999984pt height=21.18721440000001pt/> | <img src="assets/post_resources/math//33aeb8ca4b75d89bb6757ef70f1231ad.svg?invert_in_darkmode" align=middle width=59.893419299999984pt height=21.18721440000001pt/> | <img src="assets/post_resources/math//8cdfa83d4060e2225b3493dbcc1d8c3c.svg?invert_in_darkmode" align=middle width=59.893419299999984pt height=21.18721440000001pt/> | <img src="assets/post_resources/math//d9b04a14923da4206b6d93cf3fb3d1cc.svg?invert_in_darkmode" align=middle width=59.893419299999984pt height=21.18721440000001pt/> | <img src="assets/post_resources/math//cf70c0a90acb844f5ab709dedf904101.svg?invert_in_darkmode" align=middle width=59.893419299999984pt height=21.18721440000001pt/> |
+| $\eta=0.05$ | $\eta=0.15$ | $\eta=0.25$ | $\eta=0.35$ | $\eta=0.45$ |
 |:-------:|:----:|:----:|:----:|:----:|
 ![gradient descent effect of step size][gradient_descent_eta1] | ![gradient descent effect of step size][gradient_descent_eta2] | ![gradient descent effect of step size][gradient_descent_eta3] | ![gradient descent effect of step size][gradient_descent_eta4] | ![gradient descent effect of step size][gradient_descent_eta5] |
 
-Grafiklerden de görüldüğü üzere, küçük <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> değerleri için yöntemin yakısaması uzun sayıda iterasyon gerektirirken, büyük <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> değerleri için yöntemin hiç yakınsamama riski bulunmaktadır. Bu problemlerin önüne geçmek için gradyan iniş yöntemi ile birlikte sabit <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> kullanmak yerine iterasyonlar arasında değişen bir adım boyutu kullanmak tercih edilmektedir. Bu adım boyutu genllikle, <img src="assets/post_resources/math//3ec3d56da8fb88298e526d71d254fdba.svg?invert_in_darkmode" align=middle width=47.406362849999994pt height=24.575218800000012pt/> gibi, iterasyonun başlangıcında büyük adım boyları kullanmaya izin verirken, ilerleyen iterasyonlarda kullanılan adım boyunu kısaltacak şekilde seçilmektedir.
+Grafiklerden de görüldüğü üzere, küçük $\eta$ değerleri için yöntemin yakısaması uzun sayıda iterasyon gerektirirken, büyük $\eta$ değerleri için yöntemin hiç yakınsamama riski bulunmaktadır. Bu problemlerin önüne geçmek için gradyan iniş yöntemi ile birlikte sabit $\eta$ kullanmak yerine iterasyonlar arasında değişen bir adım boyutu kullanmak tercih edilmektedir. Bu adım boyutu genllikle, $\eta_k = \frac{\eta}{k}$ gibi, iterasyonun başlangıcında büyük adım boyları kullanmaya izin verirken, ilerleyen iterasyonlarda kullanılan adım boyunu kısaltacak şekilde seçilmektedir.
 
 ### Kesin Doğru Araması (Exact Line Search)
 
-Gradyan İniş yönteminde karşımıza çıkan <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> adım boyutunun belirlenemesi problemine karşı önerilen bir yöntemdir. Yöntem her iterasyon adımında seçilen bir <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> doğrultusu için en uygun <img src="assets/post_resources/math//9d586210243d20051d94ea070f67777a.svg?invert_in_darkmode" align=middle width=15.428191349999992pt height=14.15524440000002pt/> adım boyunu bulmaya yönelik ikinci bir optimizasyon problemi tanımlar. Bu problem;
+Gradyan İniş yönteminde karşımıza çıkan $\eta$ adım boyutunun belirlenemesi problemine karşı önerilen bir yöntemdir. Yöntem her iterasyon adımında seçilen bir $d_k$ doğrultusu için en uygun $\eta_k$ adım boyunu bulmaya yönelik ikinci bir optimizasyon problemi tanımlar. Bu problem;
 
-<p align="center"><img src="assets/post_resources/math//fb15e0fceee82d8349b05599e003d996.svg?invert_in_darkmode" align=middle width=180.89451765pt height=25.1935035pt/></p>
+$$
+\eta_k = \arg \min_{\eta \geq 0} f(\mathbf{x_k} + \eta d_k) \tag{2}
+$$
 
-şeklinde tanımlanır. Bu optimizasyon problemi sonucunda yöntem <img src="assets/post_resources/math//3d7a784ce0bf75056d75325b87330dc4.svg?invert_in_darkmode" align=middle width=17.83327259999999pt height=14.611878600000017pt/> noktasından, <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> doğrultusunda ne uzunlukta bir adım <img src="assets/post_resources/math//9d586210243d20051d94ea070f67777a.svg?invert_in_darkmode" align=middle width=15.428191349999992pt height=14.15524440000002pt/> atması durumunda <img src="assets/post_resources/math//190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode" align=middle width=9.81741584999999pt height=22.831056599999986pt/> fonksiyonunun en küçük değerine ulaştığını çözmeyi amaçlar.
+şeklinde tanımlanır. Bu optimizasyon problemi sonucunda yöntem $\mathbf{x_k}$ noktasından, $d_k$ doğrultusunda ne uzunlukta bir adım $\eta_k$ atması durumunda $f$ fonksiyonunun en küçük değerine ulaştığını çözmeyi amaçlar.
 
 Örnek problemimiz üzerinde *Kesin Doğru Araması* ile seçmemiz gereken adım boylarını hesaplamaya çalışalım. Örnek problemimizi ikinci dereceden türev (Hessian) matrisini kullanılarak aşağıda verilen şekilde yeniden yazabiliriz.
 
-<p align="center"><img src="assets/post_resources/math//fd0d231b2be309762f2ec96b439e595d.svg?invert_in_darkmode" align=middle width=298.43138159999995pt height=39.452455349999994pt/></p>
+$$
+f(x,y) = x^2+2y^2=\frac{1}{2} \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix}2 & 0 \\0 & 4\end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+$$
 
-Burada işlem kolaylığı sağlaması açısından <img src="assets/post_resources/math//2936377ed9d7addb57be53cc63215705.svg?invert_in_darkmode" align=middle width=73.82020304999999pt height=26.43842849999998pt/> ve <img src="assets/post_resources/math//2fb79f8996a02a5dd28d339ee7c144d7.svg?invert_in_darkmode" align=middle width=90.57069284999999pt height=26.76175259999998pt/> değişkenleri kullanılarak problem düzenlenirse
+Burada işlem kolaylığı sağlaması açısından $\mathbf{x} = \left [x, y \right ]^\intercal$ ve $H=\nabla^2 f(\mathbf{x})$ değişkenleri kullanılarak problem düzenlenirse
 
-<p align="center"><img src="assets/post_resources/math//fa7d350a524ab294eb5f5dcca030dfa5.svg?invert_in_darkmode" align=middle width=109.88104544999999pt height=32.990165999999995pt/></p>
+$$f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^\intercal H \mathbf{x}$$
 
-fonksiyonu elde edilir. Bu fonksiyon Denklem \ref{exactLS} ile verilen *Kesin Doğru Araması* optimizasyon probleminde yerine yazılırsa
+fonksiyonu elde edilir. Bu fonksiyon Denklem $\eqref{2}$ ile verilen *Kesin Doğru Araması* optimizasyon probleminde yerine yazılırsa
 
-<p align="center"><img src="assets/post_resources/math//1105cec129e9e3d96e233929caaea878.svg?invert_in_darkmode" align=middle width=296.72567265pt height=34.579017pt/></p>
+$$
+\eta_k = \arg \min_{\eta \geq 0} \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )
+$$
 
-problemi elde edilir. Burada en küçüklenmeye çalışılan ifadenin <img src="assets/post_resources/math//ae7a7ddb6dec5f7da8fbe758d1891f85.svg?invert_in_darkmode" align=middle width=252.79492095pt height=27.77565449999998pt/> türevi alınıp sıfıra eşitlenerek <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> bulunabilir.
+problemi elde edilir. Burada en küçüklenmeye çalışılan ifadenin $g(\eta) = \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right )$ türevi alınıp sıfıra eşitlenerek $\eta$ bulunabilir.
 
-<p align="center"><img src="assets/post_resources/math//d46dfcf70cc4ed5c265c71fa9180220a.svg?invert_in_darkmode" align=middle width=354.24678794999994pt height=184.25113245pt/></p>
+$$
+\begin{aligned}
+\nabla_{\eta} g(\eta) &= 0 \\
+&= \nabla_{\eta} \left ( \frac{1}{2} \left ( \mathbf{x_k + \eta d_k} \right ) ^\intercal H \left ( \mathbf{x_k + \eta d_k} \right ) \right ) \\
+&= \nabla_{\eta} \left ( \frac{\eta^2}{2}d_k^\intercal H d_k  + \frac{1}{2}\mathbf{x_k}^\intercal H \mathbf{x_k} + \eta d_k^\intercal H \mathbf{x} \right ) \\
+&= \eta d_k^\intercal H d_k + d_k^\intercal H \mathbf{x_k} \\
+\eta &= -\frac{d_k^\intercal H \mathbf{x_k}}{d_k^\intercal H d_k}
+\end{aligned}
+$$
 
-Denklem \ref{exactLS} ten hatırlayacağımız üzere aranan <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> değerinin pozitif olma şartı vardır. Yukarıda bulunan <img src="assets/post_resources/math//1d0496971a2775f4887d1df25cea4f7e.svg?invert_in_darkmode" align=middle width=8.751954749999989pt height=14.15524440000002pt/> ifadesinde <img src="assets/post_resources/math//34656e306d4afe58c985c07d970709b9.svg?invert_in_darkmode" align=middle width=101.85141945pt height=24.65753399999998pt/> olduğundan, eğer <img src="assets/post_resources/math//852e27f19a205399dc63eb61502d7449.svg?invert_in_darkmode" align=middle width=15.82199354999999pt height=22.831056599999986pt/> iniş doğrultusu ise ifadenin pay kısmı <img src="assets/post_resources/math//026a5ddda3ec302c47db077253ee3b20.svg?invert_in_darkmode" align=middle width=69.4921689pt height=25.60442280000002pt/>) sıfırdan büyük olur. Payda kısmında bulunan <img src="assets/post_resources/math//7b9a0316a2fcd7f01cfd556eedf72e96.svg?invert_in_darkmode" align=middle width=14.99998994999999pt height=22.465723500000017pt/> Hessian matrisininde pozitif tanımlı olması durumunda <img src="assets/post_resources/math//176427541e9ab478c6e3ca6314c1a04b.svg?invert_in_darkmode" align=middle width=16.97114594999999pt height=21.18721440000001pt/> şartı sağlanmış olur.
+Denklem $\eqref{2}$ ten hatırlayacağımız üzere aranan $\eta$ değerinin pozitif olma şartı vardır. Yukarıda bulunan $\eta$ ifadesinde $H \mathbf{x_k} = \nabla f(\mathbf{x})$ olduğundan, eğer $d_k$ iniş doğrultusu ise ifadenin pay kısmı $-d_k^\intercal \nabla f(\mathbf{x}$) sıfırdan büyük olur. Payda kısmında bulunan $H$ Hessian matrisininde pozitif tanımlı olması durumunda $\eta \gt 0$ şartı sağlanmış olur.
 
 Verilen örnek problemin *Kesin Doğru Araması Yöntemi* ile çözümü aşağıdaki şekilde olacaktır.
 
 - İlklendirme: 
-  - \$<img src="assets/post_resources/math//580a65302d8f0b22a0713a2b209fc178.svg?invert_in_darkmode" align=middle width=78.5204541pt height=47.6716218pt/><img src="assets/post_resources/math//ab1c14aa0369c82f55160351d46a48da.svg?invert_in_darkmode" align=middle width=122.17295969999999pt height=30.267491100000004pt/><img src="assets/post_resources/math//1a12bbedea73195b595d93dce9d8a43c.svg?invert_in_darkmode" align=middle width=292.1935368pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//24a275f787ad1a25f8ebb41694af10b1.svg?invert_in_darkmode" align=middle width=226.87259594999995pt height=35.5406238pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//2c2f65dc5301d2e399393b55db8f9df3.svg?invert_in_darkmode" align=middle width=358.37081939999996pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//6c80eb71c155cd56698f6c5a740e8efd.svg?invert_in_darkmode" align=middle width=368.75632694999996pt height=26.76175259999998pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//c8a4d6ab5222cb034a46e4d6ae159cc7.svg?invert_in_darkmode" align=middle width=125.78104109999998pt height=24.65753399999998pt/><img src="assets/post_resources/math//a38b91c4abe1230be01e38aef3006ac4.svg?invert_in_darkmode" align=middle width=122.17295969999999pt height=30.267491100000004pt/><img src="assets/post_resources/math//d5d87652af87315e8541349246b04260.svg?invert_in_darkmode" align=middle width=350.64120299999996pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//4d746a6b4f05bc6d56969d8532a8d418.svg?invert_in_darkmode" align=middle width=226.87259594999995pt height=35.5406238pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//ed6ce46353f2d86f351c3d6c77a153df.svg?invert_in_darkmode" align=middle width=404.03305965pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//008f1542352ac6d3865786fa7364718d.svg?invert_in_darkmode" align=middle width=355.97089274999996pt height=26.76175259999998pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//d6a7e943fafb5a74f276f1173be236c9.svg?invert_in_darkmode" align=middle width=125.78104109999998pt height=24.65753399999998pt/><img src="assets/post_resources/math//2af915828bc4c9e9588283b618883a8f.svg?invert_in_darkmode" align=middle width=122.17295969999999pt height=30.267491100000004pt/><img src="assets/post_resources/math//c14a390f3219023847b3921e1b8fe4fe.svg?invert_in_darkmode" align=middle width=325.07034945pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//b974cdc474cffea21a43de064f8b8a31.svg?invert_in_darkmode" align=middle width=233.425137pt height=35.5406238pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//b116245d9f5c70562daf44ecc48bc918.svg?invert_in_darkmode" align=middle width=391.24763205pt height=47.6716218pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//e90220687dfa766ade4ff024d8f5c6c3.svg?invert_in_darkmode" align=middle width=376.97553629999993pt height=26.76175259999998pt/><img src="assets/post_resources/math//f580344a58f8ef5ce38992cc3915a57c.svg?invert_in_darkmode" align=middle width=21.00464354999999pt height=24.65753399999998pt/><img src="assets/post_resources/math//2b3dcd1ba6f59a0d851d757c7764b279.svg?invert_in_darkmode" align=middle width=125.78104109999998pt height=24.65753399999998pt/><img src="assets/post_resources/math//23e7c1d8275acd216749532905f76f72.svg?invert_in_darkmode" align=middle width=425.80037115pt height=45.84475499999998pt/>f(\mathbf{x_k})<img src="assets/post_resources/math//081253f696526e3b90598406a2e7b05b.svg?invert_in_darkmode" align=middle width=786.34061385pt height=30.267491100000004pt/>\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}<img src="assets/post_resources/math//7505330775ce2eb4ce7ab0e8769132bd.svg?invert_in_darkmode" align=middle width=549.23899635pt height=87.12328680000002pt/>\mathbf{x_0}<img src="assets/post_resources/math//86cd4d21c6863a0edd0032fb8d8e17ea.svg?invert_in_darkmode" align=middle width=461.03757645pt height=24.65753399999998pt/>\mathbf{x_k}<img src="assets/post_resources/math//9f158bad242fb47cca9d64240813e974.svg?invert_in_darkmode" align=middle width=387.8267332499999pt height=22.831056599999986pt/>d_k<img src="assets/post_resources/math//efc3cbb545532ee076550e5f28eb65da.svg?invert_in_darkmode" align=middle width=364.1797813499999pt height=22.831056599999986pt/>\eta<img src="assets/post_resources/math//abcd2ae1664c6c10b387457aebaced67.svg?invert_in_darkmode" align=middle width=390.89169239999995pt height=22.831056599999986pt/>H=\nabla^2 f(\mathbf{x})$ ikinci türev bilgisini gerektirdiğinden kısıtlı bir kullanım alanına sahiptir.
+  - \$$\mathbf{x_0} = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix}$$
+- İterasyon 1
+  - \$$d_0 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 2.0 \\ 4 \times 2.0\end{bmatrix} = -\begin{bmatrix} 4.0 \\ 8.0\end{bmatrix}$$
+  - \$$\eta_0 = -\frac{d_0^\intercal H \mathbf{x_0}}{d_0^\intercal H d_0} = -\frac{-80.0}{288.0}=0.277$$
+  - \$$\mathbf{x_1} = \mathbf{x_0} + \eta_0 d_0 = \begin{bmatrix}2.0 \\ 2.0 \end{bmatrix} - 0.277 \begin{bmatrix} 4.0 \\ 8.0\end{bmatrix} = \begin{bmatrix} 0.888 \\ -0.222\end{bmatrix}$$
+  - \$$f(\mathbf{x_1}) = x^2+2y^2 = 0.888^2 + 2 \times (-0.222)^2 = 0.888$$
+  - \$$\lVert \nabla f(\mathbf{x_1}) \lVert = 1.987$$
+- İterasyon 2
+  - \$$d_1 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.888 \\ 4 \times -0.222\end{bmatrix} = -\begin{bmatrix} 1.776 \\ -0.888\end{bmatrix}$$
+  - \$$\eta_1 = -\frac{d_1^\intercal H \mathbf{x_1}}{d_1^\intercal H d_1} = -\frac{-3.95}{9.48}=0.416$$
+  - \$$\mathbf{x_2} = \mathbf{x_1} + \eta_1 d_1 = \begin{bmatrix} 0.888 \\ -0.222 \end{bmatrix} - 0.416 \begin{bmatrix} 1.776 \\ -0.888 \end{bmatrix} = \begin{bmatrix} 0.148 \\ 0.148\end{bmatrix}$$
+  - \$$f(\mathbf{x_2}) = x^2+2y^2 = 0.148^2 + 2 \times (0.148)^2 = 0.065$$
+  - \$$\lVert \nabla f(\mathbf{x_2}) \lVert = 0.662$$
+- İterasyon 3
+  - \$$d_2 = -\nabla f(x,y) = -\begin{bmatrix} 2 \times 0.148 \\ 4 \times 0.148\end{bmatrix} = -\begin{bmatrix} 0.296 \\ 0.592\end{bmatrix}$$
+  - \$$\eta_2 = -\frac{d_2^\intercal H \mathbf{x_2}}{d_2^\intercal H d_2} = -\frac{-0.438}{1.580}=0.277$$
+  - \$$\mathbf{x_3} = \mathbf{x_2} + \eta_2 d_2 = \begin{bmatrix}0.148 \\ 0.148 \end{bmatrix} - 0.277 \begin{bmatrix} 0.296 \\ 0.592\end{bmatrix} = \begin{bmatrix} 0.065 \\ -0.016\end{bmatrix}$$
+  - \$$f(\mathbf{x_3}) = x^2+2y^2 = 0.065^2 + 2 \times (-0.016)^2 = 0.0048$$
+  - \$$\lVert \nabla f(\mathbf{x_3}) \lVert = 0.147$$
+
+İterasyonlardan da görüldüğü üzere her iterasyon adımında $f(\mathbf{x_k})$ fonksiyonu Gradyan İniş Yönteminde göre çok daha hızlı bir şekilde sıfıra yaklaşmaktadır. İterasyon adımlarına $\lVert \nabla f(\mathbf{x_k}) \lVert \lt 10^{-5}$ olana kadar devam edilirse (toplam 12 iterasyon) aşağıda verilen grafik oluşur.
+
+![exact line search with gradient descent example#half][gradient_descent_els]
+
+Verilen grafikte siyah ile gösterilen nokta iterasyonun başlangıç noktasını ($\mathbf{x_0}$) göstermektedir. Sarı ile gösterilen noktalar ise her adımda gidilen $\mathbf{x_k}$ noktalarını göstermektedir. Mavi ile gösterilen çizgi ise $d_k$ doğrultusunu göstermektedir. Kesin doğru araması $\eta$ adım boyunun bulunması için optimum çözümü önerse de $H=\nabla^2 f(\mathbf{x})$ ikinci türev bilgisini gerektirdiğinden kısıtlı bir kullanım alanına sahiptir.
 
 Yazıda yer alan analizlerin yapıldığı kod parçaları, görseller ve kullanılan veri setlerine [imlab_optimization_using_gradient_methods](https://github.com/cescript/imlab_optimization_using_gradient_methods) GitHub sayfası üzerinden erişilebilir.
 
